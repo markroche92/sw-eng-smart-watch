@@ -1,0 +1,110 @@
+User Inputs:
+
+- button (A)
+- button (B)
+
+
+The clock shall activate when button A is pressed for more than 3 seconds
+The clock shall deactivate when buttons A+B are pressed for more than 3 seconds
+
+At power-on the clock shall read the settings and load the clock time from mobile phone. If connection is not available, default 00:00 is used.
+
+
+Display - views
+
+- Clock with hands: default view at start-up
+
+The watch shall display the current time using clock with hands display (hours, minutes and seconds hands)
+The watch shall change to "Clock with digits" when button A is pressed.
+The watch shall change to "Change display view" view when button B is pressed.
+
+- Clock with digits: 
+
+The watch shall display the current time using clock with digits (hours and minutes)
+The watch shall display the battery life indicator
+The watch shall change to "Clock with hands" when button A is pressed.
+The watch shall change to "Change display view" view when button B is pressed.
+
+
+- Change display view:
+
+Display options are: 
+	News
+	Weather
+	Heart rate
+	ECG
+	Sp02
+	Map
+	Settings
+	Power off
+	
+The watch shall change selected view when button A is pressed.
+The watch shall activate the selected view when button B is pressed. 
+The watch shall deactivate when "Power off" is selected.
+
+
+- News view:
+
+The watch shall connect to the mobile phone to retrieve the news info through the bluetooth connection. If connection is available, the news page is displayed otherwise an error message is displayed.
+The watch shall change to "Change display view" view when button B is pressed.
+
+- Weather view:
+
+The watch shall connect to the mobile phone to retrieve the weather info through the bluetooth connection. If connection is available, the weather page is displayed otherwise an error message is displayed.
+The watch shall change to "Change display view" view when button B is pressed.
+
+- Heart rate view:
+
+The watch shall display the current heart rate. If not available, an error message is displayed.
+The watch shall change to "Change display view" view when button B is pressed.
+
+- ECG view:
+
+The watch shall display the ECG. If not available, an error message is displayed.
+The watch shall change to "Change display view" view when button B is pressed.	
+	
+
+- Map view:
+
+The watch shall connect to the mobile phone to retrieve the map info through the bluetooth, according to the position indicated by the GPS tracker. If connection is not available or GPS position is not available with enough precision (100 m), an error message is displayed.
+The watch shall dynamically display a dot over the map to indicate the GPS position of the watch.
+Default zoom is 100%. The watch shall change the zoom option when button A is pressed circularly between these values:  75% - 50% - 25% - 100% - 150% - 200% - 100%
+The watch shall change to "Change display view" when button B is pressed.
+
+- Settings view:
+
+A list of options are available:
+
+	1)brightness bar 
+	2)bluetooth on/off 
+	3)news notification on/off
+	4)far from home app notification on/off (for elderly mostly)
+	5)health status check on/off
+	6)change home position to current GPS position
+	7)return to change view menu
+	
+The watch shall change option when button A is pressed (default brightness).
+The watch shall change option value or activate the selected option when button B is pressed. 
+
+	1) Brightness setting (default 50%)
+	2) Activate or deactivate bluetooth (default on)
+	3) If activated, news are notified and displayed in any view except hand clock view (default off)
+	4) If activated, a notification is sent when GPS position is more than 5km from configured home position (walk distance) (default off)
+	5) If activated, a notification is sent when when health status is considered problematic according to AI algorithm (default off)
+	6) Set the home position used in point 4 as the current GPS position. If GPS is not availble with enough precision (100 m), an error message is displayed.
+	7) Return to change view menu and save the current settings on storage card.
+			
+When a notification is sent a vibration is also sent through actuators (except for news notification).
+
+	
+Power management (background)
+
+The clock shall go to low-power stand-by mode when a movement is not detected from accelerometer for at least 5 seconds.
+The clock shall reactivate from low power mode when a movement is detected from acceleromenter.
+The power value is always measured in background and when under 10%, a vibration is sent through actuators and the display change to low brightness. When it returns over 10%, it recovers the saved brightness setting.
+
+
+
+
+
+
