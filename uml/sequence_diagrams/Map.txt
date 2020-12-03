@@ -1,0 +1,65 @@
+@startuml
+participant DisplayViews 
+participant MapView
+participant GPS
+participant Bluetooth
+participant DisplayError 
+
+opt Map
+  DisplayViews --> MapView : GoTo Map
+end
+opt Views
+  MapView --> DisplayViews : GoTo Views
+end
+MapView--> GPS: AskGPS
+Activate GPS
+GPS--> MapView: Position
+Deactivate GPS
+opt Position == PositionError
+  MapView--> DisplayError : SendError(PositionError)
+  Activate DisplayError
+  DisplayError --> MapView: DefaultPosition (New York)
+  Deactivate DisplayError
+end 
+MapView--> Bluetooth: AskMap
+Activate Bluetooth
+Bluetooth--> MapView: Map
+Deactivate Bluetooth
+alt Map == MapError
+  MapView--> DisplayError : SendError(MapError)
+  Activate DisplayError
+  DisplayError --> MapView:
+  Deactivate DisplayError 
+else
+  MapView--> MapView : update map
+end
+loop event
+alt event = zoom
+  MapView --> MapView : update zoom to value 25% / 50% / 75% / 100%
+else event = timer
+MapView--> GPS: AskGPS
+Activate GPS
+GPS--> MapView: Position
+Deactivate GPS
+alt Position == PositionError
+  MapView--> DisplayError : SendError(PositionError)
+  Activate DisplayError
+  DisplayError --> MapView: DefaultPosition (New York)
+  Deactivate DisplayError
+else 
+MapView--> Bluetooth: AskMap
+Activate Bluetooth
+Bluetooth--> MapView: Map
+Deactivate Bluetooth
+alt Map == MapError
+  MapView--> DisplayError : SendError(MapError)
+  Activate DisplayError
+  DisplayError --> MapView:
+  Deactivate DisplayError 
+else
+  MapView--> MapView : update map
+end
+end
+end
+end
+@enduml

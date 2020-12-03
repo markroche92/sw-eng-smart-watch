@@ -1,0 +1,46 @@
+@startuml
+participant DeactivatedClock 
+participant ClockView 
+participant BlueTooth
+participant Battery
+participant DisplayError 
+participant DisplayViews 
+
+opt Activation
+  DeactivatedClock -> ClockView:  Activate
+end
+ClockView --> BlueTooth: Ask time
+Activate BlueTooth
+BlueTooth --> ClockView: Time
+Deactivate BlueTooth
+opt Time == TimeError
+  ClockView --> DisplayError : SendError(TimeError)
+  Activate DisplayError
+  DisplayError --> ClockView : DefaultTime (00:00)
+  Deactivate DisplayError
+end
+loop event
+alt event = Views OR Clock OR Deactivate
+opt Views
+  ClockView --> DisplayViews : GoTo Views
+end
+opt Clock
+  DisplayViews --> ClockView : GoTo Clock
+end
+opt Deactivation
+  ClockView --> DeactivatedClock : Deactivate
+end
+else event = timer
+ClockView --> Battery: AskBattery
+Activate Battery
+Battery --> ClockView: Battery
+Deactivate Battery
+opt Battery == BatteryError
+  ClockView --> DisplayError : SendError(BatteryError)
+  Activate DisplayError
+  DisplayError --> ClockView : DefaultBattery (-1%)
+  Deactivate DisplayError
+end 
+end
+end
+@enduml

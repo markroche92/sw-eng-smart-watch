@@ -1,0 +1,104 @@
+@startuml
+participant DeactivatedClock 
+participant DisplayViews 
+participant ClockView 
+participant StepCountView 
+participant HeartRateView 
+participant ECGView 
+participant SP02View
+participant MapView
+participant SettingsView 
+participant StepCounter
+participant HeartRateMonitor
+participant ECGMonitor
+participant SP02Monitor
+participant HeartRateMonitor
+participant DisplayError 
+
+
+opt Clock
+  DisplayViews --> ClockView : GoTo Clock
+end
+opt Views
+  ClockView --> DisplayViews : GoTo Views
+end
+opt StepCount
+  DisplayViews --> StepCountView : GoTo StepCount
+end
+StepCountView --> StepCounter : AskStepCount
+Activate StepCounter
+StepCounter--> StepCountView : StepCount
+Deactivate StepCounter
+opt StepCount == StepCountError
+  StepCountView --> DisplayError : SendError(StepCountError)
+  Activate DisplayError
+  DisplayError --> StepCountView : DefaultStepCount (0)
+  Deactivate DisplayError
+end
+opt Views
+  StepCountView --> DisplayViews : GoTo Views
+end
+opt HeartRate
+  DisplayViews --> HeartRateView : GoTo HeartRate
+end
+HeartRateView --> HeartRateMonitor: AskHeartRate
+Activate HeartRateMonitor
+HeartRateMonitor--> HeartRateView : HeartRate
+Deactivate HeartRateMonitor
+opt HeartRate == HeartRateError
+  HeartRateView --> DisplayError : SendError(HeartRateError)
+  Activate DisplayError
+  DisplayError --> HeartRateView : DefaultHeartRate (0)
+  Deactivate DisplayError
+end
+opt Views
+  HeartRateView --> DisplayViews : GoTo Views
+end
+opt ECG
+  DisplayViews --> ECGView : GoTo ECG
+end
+ECGView --> ECGMonitor: AskECG
+Activate ECGMonitor
+ECGMonitor--> ECGView : ECG
+Deactivate ECGMonitor
+opt ECG == ECGError
+  ECGView --> DisplayError : SendError(ECGError)
+  Activate DisplayError
+  DisplayError --> ECGView : DefaultECG (0)
+  Deactivate DisplayError
+end
+opt Views
+  ECGView --> DisplayViews : GoTo Views
+end
+opt SP02
+  DisplayViews --> SP02View : GoTo SP02
+end
+SP02View --> SP02Monitor: AskSP02
+Activate SP02Monitor
+SP02Monitor--> SP02View : SP02
+Deactivate SP02Monitor
+opt SP02 == SP02Error
+  SP02View --> DisplayError : SendError(SP02Error)
+  Activate DisplayError
+  DisplayError --> SP02View : DefaultSP02 (0)
+  Deactivate DisplayError
+end
+opt Views
+  SP02View --> DisplayViews : GoTo Views
+end
+opt Map
+  DisplayViews --> MapView : GoTo Map
+end
+opt Views
+  MapView --> DisplayViews : GoTo Views
+end
+opt Settings
+  DisplayViews --> SettingsView : GoTo Settings
+end
+opt Views
+  SettingsView --> DisplayViews : GoTo Views
+end
+opt Power Off
+  DisplayViews --> DeactivatedClock : Deactivate
+end
+@enduml

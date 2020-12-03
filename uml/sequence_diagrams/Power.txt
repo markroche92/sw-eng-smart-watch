@@ -1,0 +1,51 @@
+@startuml
+participant Acceletometer
+participant PowerMonitor
+participant Battery
+participant Brightness
+participant Storage
+participant VibrationMotor
+
+loop event
+Alt event = timerBattery
+PowerMonitor --> Battery: AskBattery
+Activate Battery
+Battery --> PowerMonitor: Battery
+Deactivate Battery
+alt (Battery == BatteryError OR Battery<=10%) AND LowPower == OFF
+  PowerMonitor--> Brightness: change Brightness to value 25%
+  PowerMonitor--> VibrationMotor: Send vibration
+  PowerMonitor --> PowerMonitor: LowPower == ON
+else Battery>10% AND LowPower == OFF
+  PowerMonitor--> Storage: readStorage(Brightness)
+  Activate Storage
+  Storage--> PowerMonitor: Brightness
+  Deactivate Storage
+alt Storage != StorageError
+  PowerMonitor--> Brightness: change Brightness to value 'Brightness(Storage )'
+else
+  PowerMonitor--> Brightness: change Brightness to value 100%
+end 
+  PowerMonitor --> PowerMonitor: LowPower == OFF
+end
+else event = timerMovement
+opt LowPower == OFF
+  PowerMonitor --> Brightness: change Brightness to value 25%
+  PowerMonitor--> VibrationMotor: Send vibration
+  PowerMonitor --> PowerMonitor: LowPower == ON
+end
+else event = movement
+  Acceletometer --> PowerMonitor: movement
+  PowerMonitor--> Storage: readStorage(Brightness)
+  Activate Storage
+  Storage--> PowerMonitor: Brightness
+  Deactivate Storage
+alt Storage != StorageError
+  PowerMonitor--> Brightness: change Brightness to value 'Brightness(Storage )'
+else
+  PowerMonitor--> Brightness: change Brightness to value 100%
+end 
+  PowerMonitor --> PowerMonitor: LowPower == OFF
+end
+end
+@enduml
