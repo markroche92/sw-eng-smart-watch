@@ -3,8 +3,9 @@ User Inputs:
 - button (A)
 - button (B)
 
+The device shall power on when button A is pressed for more than 3 seconds
+The initial display state upon power-on shall be clock
 
-The clock shall activate when button A is pressed for more than 3 seconds
 The clock shall deactivate when buttons A+B are pressed for more than 3 seconds
 
 At power-on the clock shall read the settings and load the clock time from mobile phone. If connection is not available, default 00:00 is used.
