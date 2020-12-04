@@ -2,48 +2,80 @@
 participant Acceletometer
 participant PowerMonitor
 participant Battery
+participant BlueTooth
 participant Brightness
+participant HealtStatusCheck
 participant Storage
 participant VibrationMotor
 
+PowerMonitor --> PowerMonitor: PowerDown == ON
 loop event
 Alt event = timerBattery
 PowerMonitor --> Battery: AskBattery
 Activate Battery
 Battery --> PowerMonitor: Battery
 Deactivate Battery
-alt (Battery == BatteryError OR Battery<=10%) AND LowPower == OFF
+alt Battery<=10% AND Battery>2% AND (LowPower == OFF OR PowerDown == ON)
   PowerMonitor--> Brightness: change Brightness to value 25%
+  PowerMonitor--> BlueTooth: Disable BlueTooth
+  PowerMonitor--> HealtStatusCheck: Disable HealtStatusCheck
   PowerMonitor--> VibrationMotor: Send vibration
   PowerMonitor --> PowerMonitor: LowPower == ON
-else Battery>10% AND LowPower == OFF
-  PowerMonitor--> Storage: readStorage(Brightness)
+  PowerMonitor --> PowerMonitor: PowerDown == OFF
+else Battery>10% AND (LowPower == ON OR PowerDown == ON)
+  PowerMonitor--> Storage: readStorage(Brightness, BlueTooth, HealtStatusCheck)
   Activate Storage
-  Storage--> PowerMonitor: Brightness
+  Storage--> PowerMonitor: Brightness, BlueTooth, HealtStatusCheck
   Deactivate Storage
-alt Storage != StorageError
+alt Brightness != StorageError
   PowerMonitor--> Brightness: change Brightness to value 'Brightness(Storage )'
 else
-  PowerMonitor--> Brightness: change Brightness to value 100%
+  PowerMonitor--> Brightness: change Brightness to value 50%
+end 
+alt BlueTooth != StorageError
+  PowerMonitor--> BlueTooth: change BlueTooth to value 'BlueTooth(Storage )'
+else
+  PowerMonitor--> BlueTooth: change BlueTooth to ON
+end 
+alt HealtStatusCheck != StorageError
+  PowerMonitor--> HealtStatusCheck: change HealtStatusCheck to value 'HealtStatusCheck(Storage )'
+else
+  PowerMonitor--> HealtStatusCheck: change HealtStatusCheck to OFF
 end 
   PowerMonitor --> PowerMonitor: LowPower == OFF
+  PowerMonitor --> PowerMonitor: PowerDown == OFF
+else Battery<=2% AND PowerDown == OFF
+  PowerMonitor --> PowerMonitor: Deactivate Watch
+else Battery == BatteryError
 end
 else event = timerMovement
 opt LowPower == OFF
   PowerMonitor --> Brightness: change Brightness to value 25%
+  PowerMonitor--> BlueTooth: Disable BlueTooth
+  PowerMonitor--> HealtStatusCheck: Disable HealtStatusCheck
   PowerMonitor--> VibrationMotor: Send vibration
   PowerMonitor --> PowerMonitor: LowPower == ON
 end
 else event = movement
   Acceletometer --> PowerMonitor: movement
-  PowerMonitor--> Storage: readStorage(Brightness)
+  PowerMonitor--> Storage: readStorage(Brightness, BlueTooth, HealtStatusCheck)
   Activate Storage
-  Storage--> PowerMonitor: Brightness
+  Storage--> PowerMonitor: Brightness, BlueTooth, HealtStatusCheck
   Deactivate Storage
-alt Storage != StorageError
+alt Brightness != StorageError
   PowerMonitor--> Brightness: change Brightness to value 'Brightness(Storage )'
 else
-  PowerMonitor--> Brightness: change Brightness to value 100%
+  PowerMonitor--> Brightness: change Brightness to value 50%
+end 
+alt BlueTooth != StorageError
+  PowerMonitor--> BlueTooth: change BlueTooth to value 'BlueTooth(Storage )'
+else
+  PowerMonitor--> BlueTooth: change BlueTooth to ON
+end 
+alt HealtStatusCheck != StorageError
+  PowerMonitor--> HealtStatusCheck: change HealtStatusCheck to value 'HealtStatusCheck(Storage )'
+else
+  PowerMonitor--> HealtStatusCheck: change HealtStatusCheck to OFF
 end 
   PowerMonitor --> PowerMonitor: LowPower == OFF
 end
