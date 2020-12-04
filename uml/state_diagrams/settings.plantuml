@@ -2,9 +2,11 @@
 
 skinparam shadowing false
 
+
 title Settings State Diagram
 
 state "Settings Selection" as Ss{
+
     state "Brightness Selection" as Bs {
 
         state "Low Brightness" as Lb : entry: Set Brightness at 25%
@@ -13,10 +15,10 @@ state "Settings Selection" as Ss{
         state "Very High Brightness" as Vhb : entry: Set Brightness at 100%
 
         [*]->Mb
-        Lb -up-> Mb : Press\nButton A
-        Mb -right-> Hb : Press\nButton A
-        Hb -down-> Vhb : Press\nButton A
-        Vhb -left-> Lb : Press\nButton A
+        Lb -up-> Mb : Press\nButton B
+        Mb -right-> Hb : Press\nButton B
+        Hb -down-> Vhb : Press\nButton B
+        Vhb -left-> Lb : Press\nButton B
     }
 
     state "Bluetooth Selection" as Bts {
@@ -25,28 +27,35 @@ state "Settings Selection" as Ss{
         state "Bluetooth Off" as Bd : entry: Deactivate Bluetooth
 
         [*]->Ba
-        Ba -down-> Bd : Press\nButton A
-        Bd -up-> Ba : Press\nButton A
+        Ba -down-> Bd : Press\nButton B
+        Bd -up-> Ba : Press\nButton B
     }
 
-    state "Health Check Notification" as Hcn {
+    state "Health Check Notification Selection" as Hcn {
 
         state "Notification On" as Na : entry: Activate Notification
         state "Notification Off" as Nd : entry: Deactivate Notification
 
         [*]->Na
-        Na -down-> Nd : Press\nButton A
-        Nd -up-> Na : Press\nButton A
+        Na -down-> Nd : Press\nButton B
+        Nd -up-> Na : Press\nButton B
     }
+
+    state "Return to Display Selection" as R {
+
+    }
+
+    
 
     Bs : entry: Activate Brightness Selection Menu\nexit: Deactivate Brightness Selection Menu
     Bts : entry: Activate Bluetooth Selection Menu\nexit: Deactivate Bluetooth Selection Menu
     Hcn : entry: Activate Health Check Notification Selection Menu\nexit: Deactivate Health Check Notification Selection Menu
-
+    R : entry: Display option to return to Display Selection Menu
     
-    Bs -right-> Bts : Press\nButton B
-    Bts -down-> Hcn : Press\nButton B
-    Hcn -up-> Bs : Press\nButton B
+    Bs -right-> Bts : Press\nButton A
+    Bts -down-> Hcn : Press\nButton A
+    Hcn -left-> R : Press\nButton A
+    R -up-> Bs : Press\nButton A
 }
 
 state "Settings Storage" as Sstor{
@@ -54,10 +63,10 @@ state "Settings Storage" as Sstor{
 
 }
 
-Sstor : exit: Store Selected Settings
+Sstor : do: Store Selected Settings\nexit: Return to Display Selection Menu
 
 [*]-down->Bs : Press\nButton B
-Ss-down->Sstor : Hold\nButton B\nfor 3 secs
+R-down->Sstor : Press\nButton B
 Ss : entry: Activate Settings Selection Menu\nexit: Deactivate Settings Selection Menu
 Sstor->[*]
 
