@@ -1,0 +1,34 @@
+@startuml
+
+skinparam shadowing false
+
+title Bluetooth State Diagram
+
+state "Bluetooth Enabled" as E{
+
+    state Choice1 <<choice>> 
+    state "Searching" as S : do: Search for bluetooth\ndevices (background)
+    state "Pairing" as P: entry: Prompt User for Pairing
+    state "Data Transmission" as T : do: Offboard data to paired device\ndo: Receive data from paired device
+
+    [*] -down-> S
+    S -right-> Choice1 : [New Device Found]
+    Choice1 -down-> T : [Previously Paired\nwith Device]
+    Choice1 -down-> P : [Not Previously Paired\nwith Device]
+    P -up-> S : [Pairing Rejected\nby User (Button B)]
+    P -right-> T : [Pairing Accepted\nby User (Button A)]
+}
+
+
+
+state "Bluetooth Disabled" as D : do: No data sent or received
+state Choice2 <<choice>> 
+
+[*] -left-> Choice2
+Choice2 -up-> E : [Stored Bluetooth Setting == Enabled]
+Choice2 -down-> D : [Stored Bluetooth Setting == Disabled]
+E -down-> D : [Disable Bluetooth]
+D -up-> E : [Enable Bluetooth]
+
+
+@enduml

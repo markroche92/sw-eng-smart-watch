@@ -1,0 +1,58 @@
+@startuml
+
+skinparam shadowing false
+
+title Display State Diagram
+
+state "Activate Clock" as Ac : do: Display Clock information\ndo: Display Battery information 
+state "Activate Step Count" as Asc : do: Display Step Count information
+state "Activate Heart Rate" as Ahr : do: Display Heart Rate information
+state "Activate ECG" as Aecg : do: Display ECG information
+state "Activate Sp02" as Asp : do: Display Sp02 information
+state "Activate Map" as Am : do: Display Map information
+state "Activate Settings" as As : do: Display Settings information
+state "Deactivate Display" as Dd : do: Turn off display
+
+state "Display Selection" as Dms{
+
+    state "Select Clock" as Sc : do: Select Clock in Menu
+    state "Select Step Count" as Ssc : do: Select Step count in Menu
+    state "Select Heart Rate" as Shr : do: Select Heart Rate in Menu
+    state "Select ECG" as Secg : do: Select ECG in Menu
+    state "Select Sp02" as Ssp : do: Select Sp02 in Menu
+    state "Select Map" as Sm : do: Select Map in Menu
+    state "Select Settings" as Ss : do: Select Settings in Menu
+
+    Sc -down-> Ssc : Press\nButton A
+    Ssc -down-> Shr : Press\nButton A
+    Shr -down-> Secg : Press\nButton A
+    Secg -right-> Ssp : Press\nButton A
+    Ssp -up-> Sm : Press\nButton A
+    Sm -up-> Ss : Press\nButton A
+    Ss -up-> Sc : Press\nButton A
+
+}
+
+Dms : do: activate display Selection Menu
+
+Sc -right-> Ac : Press\nButton B
+Ssc -up-> Asc : Press\nButton B
+Shr -left-> Ahr : Press\nButton B
+Secg -down-> Aecg : Press\nButton B
+Ssp -down-> Asp : Press\nButton B
+Sm -right-> Am : Press\nButton B
+Ss -right-> As : Press\nButton B
+
+[*] -up-> Ac
+Ac -left-> Sc : Hold\nButton B\nfor 3 secs
+Asc -down-> Ssc : Hold\nButton B\nfor 3 secs
+Ahr -right-> Shr : Hold\nButton B\nfor 3 secs
+Aecg -up-> Secg : Hold\nButton B\nfor 3 secs
+Asp -up-> Ssp : Hold\nButton B\nfor 3 secs
+Am -left-> Sm : Hold\nButton B\nfor 3 secs
+As -left-> Ss : Hold\nButton B\nfor 3 secs
+
+Dms --> Dd : Hold\nButton A & B\nfor 3 secs
+Dd -> [*]
+
+@enduml
