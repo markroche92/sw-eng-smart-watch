@@ -44,13 +44,13 @@ Sm -right-> Am : Press\nButton B
 Ss -right-> As : Press\nButton B
 
 [*] -up-> Ac : Hold\nButton A\nfor 3 secs
-Ac -left-> Sc : Hold\nButton B\nfor 3 secs
-Asc -down-> Ssc : Hold\nButton B\nfor 3 secs
-Ahr -right-> Shr : Hold\nButton B\nfor 3 secs
-Aecg -up-> Secg : Hold\nButton B\nfor 3 secs
-Asp -up-> Ssp : Hold\nButton B\nfor 3 secs
-Am -left-> Sm : Hold\nButton B\nfor 3 secs
-As -left-> Ss : Hold\nButton B\nfor 3 secs
+Ac -left-> Sc : Press\nButton B
+Asc -down-> Ssc : Press\nButton B
+Ahr -right-> Shr : Press\nButton B
+Aecg -up-> Secg : Press\nButton B
+Asp -up-> Ssp : Press\nButton B
+Am -left-> Sm : Press\nButton B
+As -left-> Ss : Press\nButton B
 
 Dms --> Dd : Hold\nButton A & B\nfor 3 secs
 Dd -> [*]

@@ -63,7 +63,7 @@ state "Settings Storage" as Sstor{
 
 }
 
-Sstor : do: Store Selected Settings\nexit: Return to Display Selection Menu
+Sstor : do: Store Selected Settings\nexit: Return to Display Selection
 
 [*]-down->Bs : Press\nButton B
 R-down->Sstor : Press\nButton B

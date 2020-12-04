@@ -20,16 +20,16 @@ state "Power Modes" as Pm {
 
 state "Power Down" as Pd : entry: Turn Off Device
 
-state "Battery Unavailable" as Bu : entry: do: Display warning message
+state "Battery Error" as Bu : entry: do: Display warning message
 
 state Choice <<choice>>
-[*] --> Choice
-Choice -down-> Bu : [Battery Soc\nUnavailable]
+[*] --> Choice : Hold Button A\nfor 3 secs
+Choice -down-> Bu : [Battery\nError]
 Choice -left-> Pd : [Battery Soc <= 2%]
 Choice -down-> Pm : [Battery Soc > 2%]
 
 Bu -down-> Pm : [Battery SoC >= 2%]
-Pm -up-> Bu : [Battery SoC\nUnavailable]
+Pm -up-> Bu : [Battery\nError]
 
 Bu -down-> Pd : [Battery SoC < 2%]
 
