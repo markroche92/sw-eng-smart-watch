@@ -43,7 +43,7 @@ Ssp -down-> Asp : Press\nButton B
 Sm -right-> Am : Press\nButton B
 Ss -right-> As : Press\nButton B
 
-[*] -up-> Ac
+[*] -up-> Ac : Hold\nButton A\nfor 3 secs
 Ac -left-> Sc : Hold\nButton B\nfor 3 secs
 Asc -down-> Ssc : Hold\nButton B\nfor 3 secs
 Ahr -right-> Shr : Hold\nButton B\nfor 3 secs
