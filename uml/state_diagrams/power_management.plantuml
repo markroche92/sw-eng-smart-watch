@@ -4,21 +4,38 @@ skinparam shadowing false
 
 title Power Management State Diagram
 
-state "Full Power" as Fp : entry: Set Display Brightness to Stored State\nentry: Set Bluetooth to Stored State\nentry: Set Health Notification to Stored State
-state "Low Power" as Lp : entry: Trigger Motor Vibration for 2 secs\nentry: Set Display Brightness State = Low\nentry: Disable Bluetooth\nentry: Disable Health Notification 
+state "Power Modes" as Pm {
+    state "Full Power" as Fp : entry: Set Display Brightness to Stored State\nentry: Set Bluetooth to Stored State\nentry: Set Health Notification to Stored State\ndo: Display Activated Display View
+    state "Low Power" as Lp : entry: Trigger Motor Vibration for 2 secs\nentry: Set Display Brightness State = Low\nentry: Disable Bluetooth\nentry: Disable Health Notification\ndo: Turn off display
+
+    Fp -down-> Lp : [Battery SoC <= 10% ||\n Accelerometer Force < XN (5 secs)]
+    Lp -up-> Fp : [Battery SoC > 10% &&\nAccelerometer Force >= XN]
+    
+    state Choice2 <<choice>>
+    [*] --> Choice2
+    Choice2 -left-> Fp : [Battery SoC > 10%]
+    Choice2 -right-> Lp : [Battery SoC <= 10% &&\nBattery SoC > 2%]
+
+}
+
 state "Power Down" as Pd : entry: Turn Off Device
 
+state "Battery Unavailable" as Bu : entry: do: Display warning message
+
 state Choice <<choice>>
-
 [*] --> Choice
-Choice --> Lp : [Battery SoC <= 10% &&\nBattery SoC > 2%]
-Choice --> Fp : [Battery SoC > 10%]
-Choice --> Pd : [Battery Soc <= 2%]
+Choice -down-> Bu : [Battery Soc\nUnavailable]
+Choice -left-> Pd : [Battery Soc <= 2%]
+Choice -down-> Pm : [Battery Soc > 2%]
 
-Fp -down-> Lp : [Battery SoC <= 10% ||\n Accelerometer Force < XN (5 secs)]
-Lp -up-> Fp : [Battery SoC > 10% &&\nAccelerometer Force >= XN]
-Lp -down-> Pd : [Battery SoC <= 2%]
-Pd -> [*]
+Bu -down-> Pm : [Battery SoC >= 2%]
+Pm -up-> Bu : [Battery SoC\nUnavailable]
+
+Bu -down-> Pd : [Battery SoC < 2%]
+
+
+Pm -down-> Pd : [Battery SoC <= 2%]
+Pd -up-> [*]
 
 
 @enduml
