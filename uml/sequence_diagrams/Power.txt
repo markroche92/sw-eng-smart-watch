@@ -10,19 +10,19 @@ participant VibrationMotor
 
 PowerMonitor --> PowerMonitor: PowerDown == ON
 loop event
-Alt event = timerBattery
+Alt event = AskBatteryEvent
 PowerMonitor --> Battery: AskBattery
 Activate Battery
-Battery --> PowerMonitor: Battery
+Battery --> PowerMonitor: BatterySoC
 Deactivate Battery
-alt Battery<=10% AND Battery>2% AND (LowPower == OFF OR PowerDown == ON)
+alt BatterySoC<=10% AND BatterySoC>2% AND (LowPower == OFF OR PowerDown == ON)
   PowerMonitor--> Brightness: change Brightness to value 25%
   PowerMonitor--> BlueTooth: Disable BlueTooth
   PowerMonitor--> HealtStatusCheck: Disable HealtStatusCheck
   PowerMonitor--> VibrationMotor: Send vibration
   PowerMonitor --> PowerMonitor: LowPower == ON
   PowerMonitor --> PowerMonitor: PowerDown == OFF
-else Battery>10% AND (LowPower == ON OR PowerDown == ON)
+else BatterySoC>10% AND (LowPower == ON OR PowerDown == ON)
   PowerMonitor--> Storage: readStorage(Brightness, BlueTooth, HealtStatusCheck)
   Activate Storage
   Storage--> PowerMonitor: Brightness, BlueTooth, HealtStatusCheck
@@ -44,11 +44,12 @@ else
 end 
   PowerMonitor --> PowerMonitor: LowPower == OFF
   PowerMonitor --> PowerMonitor: PowerDown == OFF
-else Battery<=2% AND PowerDown == OFF
+else BatterySoC<=2% AND PowerDown == OFF
   PowerMonitor --> PowerMonitor: Deactivate Watch
-else Battery == BatteryError
+else BatterySoC == BatteryError
 end
 else event = timerMovement
+  Acceletometer --> PowerMonitor: timeout
 opt LowPower == OFF
   PowerMonitor --> Brightness: change Brightness to value 25%
   PowerMonitor--> BlueTooth: Disable BlueTooth
@@ -58,6 +59,7 @@ opt LowPower == OFF
 end
 else event = movement
   Acceletometer --> PowerMonitor: movement
+opt LowPower == ON AND PowerDown == OFF
   PowerMonitor--> Storage: readStorage(Brightness, BlueTooth, HealtStatusCheck)
   Activate Storage
   Storage--> PowerMonitor: Brightness, BlueTooth, HealtStatusCheck
@@ -78,6 +80,7 @@ else
   PowerMonitor--> HealtStatusCheck: change HealtStatusCheck to OFF
 end 
   PowerMonitor --> PowerMonitor: LowPower == OFF
+end
 end
 end
 @enduml

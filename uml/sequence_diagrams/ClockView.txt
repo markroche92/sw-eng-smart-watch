@@ -6,12 +6,14 @@ participant BlueTooth
 participant Battery
 participant DisplayError 
 
-
-opt Activation
-  DeactivatedWatch -> ClockView:  Activate
+alt Watch==Deactivated
+opt Activate
+  DeactivatedWatch -> ClockView : Activate Watch
 end
+else Watch==Activated
 opt Clock
   DisplaySelection --> ClockView : GoTo Clock
+end
 end
 loop event
 alt event == askTimeEvent
@@ -29,18 +31,19 @@ ClockView --> ClockView: setDisplayTime(Time)
 else event = AskBatteryEvent
 ClockView --> Battery: AskBattery
 Activate Battery
-Battery --> ClockView: Battery
+Battery --> ClockView: BatterySoC
 Deactivate Battery
-opt Battery == BatteryError
+opt BatterySoC == BatteryError
   ClockView --> DisplayError : SendError(BatteryError)
   Activate DisplayError
   DisplayError --> ClockView : DefaultBattery (-1%)
   Deactivate DisplayError
 end
+ClockView --> ClockView: setDisplayCharge(BatterySoC)
 else event == Selections
   ClockView --> DisplaySelection : GoTo Selections
 else event == Deactivate
-  ClockView --> DeactivatedWatch : Deactivate
+  ClockView --> DeactivatedWatch : Deactivate Watch
 end 
 end
 @enduml
