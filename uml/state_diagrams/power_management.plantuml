@@ -28,13 +28,13 @@ Choice -down-> Bu : [Battery\nError]
 Choice -left-> Pd : [Battery Soc <= 2%]
 Choice -down-> Pm : [Battery Soc > 2%]
 
-Bu -down-> Pm : [Battery SoC >= 2%]
+Bu -down-> Pm : [Battery SoC > 2%]
 Pm -up-> Bu : [Battery\nError]
 
-Bu -down-> Pd : [Battery SoC < 2%]
+Bu -down-> Pd : [Battery SoC <= 2% ||\nManual Power Down]
 
 
-Pm -down-> Pd : [Battery SoC <= 2%]
+Pm -down-> Pd : [Battery SoC <= 2% ||\nManual Power Down]
 Pd -up-> [*]
 
 
