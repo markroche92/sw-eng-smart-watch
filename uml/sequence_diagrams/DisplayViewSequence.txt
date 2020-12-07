@@ -17,13 +17,13 @@ participant DisplayError
 
 
 opt Clock
-  DisplayViews --> ClockView : GoTo Clock
+  DisplaySelection --> ClockView : GoTo Clock
 end
 opt Selections
   ClockView --> DisplaySelection : GoTo Selections
 end
 opt StepCount
-  DisplayViews --> StepCountView : GoTo StepCount
+  DisplaySelection --> StepCountView : GoTo StepCount
 end
 StepCountView --> StepCounter : AskStepCount
 Activate StepCounter
@@ -55,7 +55,7 @@ opt Selections
   HeartRateView --> DisplaySelection : GoTo Selections
 end
 opt ECG
-  DisplayViews --> ECGView : GoTo ECG
+  DisplaySelection --> ECGView : GoTo ECG
 end
 ECGView --> ECGMonitor: AskECG
 Activate ECGMonitor
@@ -71,7 +71,7 @@ opt Selections
   ECGView --> DisplaySelection : GoTo Selections
 end
 opt SP02
-  DisplayViews --> SP02View : GoTo SP02
+  DisplaySelection --> SP02View : GoTo SP02
 end
 SP02View --> SP02Monitor: AskSP02
 Activate SP02Monitor

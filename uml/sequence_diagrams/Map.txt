@@ -1,15 +1,13 @@
 @startuml
-participant DisplayViews 
+participant DeactivatedWatch 
+participant DisplaySelection 
 participant MapView
 participant GPS
 participant Bluetooth
 participant DisplayError 
 
 opt Map
-  DisplayViews --> MapView : GoTo Map
-end
-opt Views
-  MapView --> DisplayViews : GoTo Views
+  DisplaySelection --> MapView : GoTo Map
 end
 MapView--> GPS: AskGPS
 Activate GPS
@@ -60,6 +58,10 @@ else
   MapView--> MapView : update map
 end
 end
-end
+else event == Selections
+  MapView --> DisplaySelection : GoTo Selections
+else event == Deactivate
+  MapView --> DeactivatedWatch : Deactivate Watch
+end 
 end
 @enduml
