@@ -1,0 +1,56 @@
+Diagram Descriptions : State Diagrams
+=====================================
+
+Display:
+--------
+The diagram describes how the different views of information are selected and activated. Once activated, the selected information is displayed to the user.
+
+Entry point: Power-on of the device by holding Button A for 3 seconds. The initial activated view is Clock.
+
+From an activated view, pressing Button B directs to the Display Selection menu. 
+Pressing Button A while in display selection menu will allow the user to select the next view which can be activated.
+Pressing Button B while a view is selected, will activate the view and display the selected information to the user.
+
+Exit point: Button A & B are held for 3 seconds, while Display Selection menu is active, the device powers off.
+
+
+Bluetooth:
+----------
+The diagram describes how the bluetooth connection to an external device is managed.
+
+Entry point: When the device is powered on, the stored bluetooth setting (enabled / disabled) is loaded.
+
+Once bluetooth is enabled by the user, a search begins for external bluetooth connections.
+If a connection is found, and the watch has previously connected to this device, data transmission begins between the devices.
+If a connection is found, and the watch has not previously connected to this device, the user is prompted to accept / reject connection with the device.
+If the user accepts connection, data transmission begins between the devices. Otherwise, the search for bluetooth connections resumes.
+If the user disables bluetooth, the above sequence resumes if the connection is later re-enabled.
+
+Exit point: None currently... 
+
+Settings:
+---------
+The diagram describes how the settings menu of the device is managed. 
+
+Entry point: The Settings menu is entered by pressing Button B from the Display Selection menu, while Settings is selected.
+
+Brightness is the default setting which can be adjusted. 
+By pressing Button A, Bluetooth and Health Check Notification can also be selected for adjustment. 
+A setting can be adjusted by pressing Button B.
+
+Exit point: When Return to Display Selection is selected, pressing B will allow a return to the Display Selection Menu, and the selected Settings are stored.
+
+
+Power Management:
+-----------------
+The diagram describes how the power mode of the device is managed.
+
+Entry point: While powered off, the device is powered on by holding Button A for 3 seconds.
+ 
+The Battery SoC is monitored, and determines state transitions. 
+If an error occurs when reading SoC, a warning message is displayed to the user.
+If battery SoC is found to be > 2%, the device will operate within ether Full Power of Low Power mode.
+Transition between these two states is also determined by accelerometer readings.
+Reduced device functionality is available while in Low Power mode, compared with Full Power mode. 
+
+Exit point: Once SoC drops below 2%, the device powers off, or if device is manually deactivated by the user.

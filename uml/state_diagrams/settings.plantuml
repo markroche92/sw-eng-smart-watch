@@ -1,0 +1,73 @@
+@startuml
+
+skinparam shadowing false
+
+
+title Settings State Diagram
+
+state "Settings Selection" as Ss{
+
+    state "Brightness Selection" as Bs {
+
+        state "Low Brightness" as Lb : entry: Set Brightness at 25%
+        state "Mid Brightness" as Mb : entry: Set Brightness at 50%
+        state "High Brightness" as Hb : entry: Set Brightness at 75%
+        state "Very High Brightness" as Vhb : entry: Set Brightness at 100%
+
+        [*]->Mb
+        Lb -up-> Mb : Press\nButton B
+        Mb -right-> Hb : Press\nButton B
+        Hb -down-> Vhb : Press\nButton B
+        Vhb -left-> Lb : Press\nButton B
+    }
+
+    state "Bluetooth Selection" as Bts {
+
+        state "Bluetooth On" as Ba : entry: Activate Bluetooth
+        state "Bluetooth Off" as Bd : entry: Deactivate Bluetooth
+
+        [*]->Ba
+        Ba -down-> Bd : Press\nButton B
+        Bd -up-> Ba : Press\nButton B
+    }
+
+    state "Health Check Notification Selection" as Hcn {
+
+        state "Notification On" as Na : entry: Activate Notification
+        state "Notification Off" as Nd : entry: Deactivate Notification
+
+        [*]->Na
+        Na -down-> Nd : Press\nButton B
+        Nd -up-> Na : Press\nButton B
+    }
+
+    state "Return to Display Selection" as R {
+
+    }
+
+    
+
+    Bs : entry: Activate Brightness Selection Menu\nexit: Deactivate Brightness Selection Menu
+    Bts : entry: Activate Bluetooth Selection Menu\nexit: Deactivate Bluetooth Selection Menu
+    Hcn : entry: Activate Health Check Notification Selection Menu\nexit: Deactivate Health Check Notification Selection Menu
+    R : entry: Display option to return to Display Selection Menu
+    
+    Bs -right-> Bts : Press\nButton A
+    Bts -down-> Hcn : Press\nButton A
+    Hcn -left-> R : Press\nButton A
+    R -up-> Bs : Press\nButton A
+}
+
+state "Settings Storage" as Sstor{
+
+
+}
+
+Sstor : do: Store Selected Settings\nexit: Return to Display Selection
+
+[*]-down->Bs : Press\nButton B
+R-down->Sstor : Press\nButton B
+Ss : entry: Activate Settings Selection Menu\nexit: Deactivate Settings Selection Menu
+Sstor->[*]
+
+@enduml
