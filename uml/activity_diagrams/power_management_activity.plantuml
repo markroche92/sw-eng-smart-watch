@@ -1,0 +1,33 @@
+@startuml
+
+skinparam shadowing false
+
+start
+:Device powers on;
+
+if(Battery SoC > 2%) then (yes)
+    if (Battery SoC > 10%) then (yes)
+        :Initialize in\nFull Power Mode;
+    else (no)
+        :Initialize in\nLow Power Mode;
+    endif
+
+    repeat :Check Battery SoC and\nAccelerometer Force;
+        if(Power Mode == Full &&\n(Battery SoC <= 10% ||\nAccelerometer Force < XN (5 secs))) then (yes)
+            :Transition to\nLow Power Mode;
+        else (no)
+            if (Power Mode == Low &&\n(Battery SoC > 10% &&\nAccelerometer Force >=XN)) then (yes)
+                :Transition to\nFull Power Mode;
+            else (no)
+                :Maintain\nPower Mode;
+            endif
+        endif
+
+    repeat while (Battery SoC > 2% ?) is (yes) not (no)
+    
+else (no)
+    
+endif
+:Device powers down;
+stop
+@enduml
