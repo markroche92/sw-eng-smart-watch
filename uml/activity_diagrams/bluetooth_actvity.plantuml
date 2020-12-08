@@ -1,0 +1,32 @@
+@startuml
+
+skinparam shadowing false
+
+start
+:Device is powered on;
+
+partition BluetoothInitialisation {
+    :Get Stored\nBluetooth Setting;
+    if(Stored Setting\nis Enabled ?) then (yes)
+    else (no)
+        :Wait until\nBluetooth Enabled;
+    endif
+}
+
+repeat
+    partition BluetoothEnableSequence {
+        repeat
+            :Search for\nBluetooth Connections;
+            :Bluetooth Connection\nfound;
+            :Prompt user to\npair with device;
+        repeat while (Pairing accepted?) is (no) not (yes)
+    }
+    :Perform Bluetooth communication\n with paired device;
+    if(Device deactivated ?) then (yes)
+        stop
+    else (no)
+    endif
+backward :Wait until\nBluetooth Enabled;
+repeat while(Bluetooth disabled ?) is (yes)
+
+@enduml
