@@ -57,32 +57,30 @@ Display options are:
 	Sp02
 	Map
 	Settings
-	Power off
 	
 Default option is "Clock"	
 The watch shall change selected view when button A is pressed.
 The watch shall activate the selected view when button B is pressed. 
-The watch shall deactivate when "Power off" is selected.
 
 REQ 2.5 Step Count view
 
 The watch shall display the current step count. If not available, an error message is displayed.
-The watch shall change to "Change display view" view when button B is pressed.
+The watch shall change to "Display Selection view" view when button B is pressed.
 
 REQ 2.6 Heart rate view
 
 The watch shall display the current heart rate. If not available, an error message is displayed.
-The watch shall change to "Change display view" view when button B is pressed.
+The watch shall change to "Display Selection view" view when button B is pressed.
 
 REQ 2.7 ECG view:
 
 The watch shall display the ECG. If not available, an error message is displayed.
-The watch shall change to "Change display view" view when button B is pressed.	
+The watch shall change to "Display Selection view" view when button B is pressed.	
 
 REQ 2.8 Sp02 view:
 
-The watch shall display the Sp02. If not available, an error message is displayed.
-The watch shall change to "Change display view" view when button B is pressed.	
+The watch shall display the blood oxygen level (%). If not available, an error message is displayed.
+The watch shall change to "Display Selection view" view when button B is pressed.	
 	
 REQ 2.9 Map view:
 
@@ -90,7 +88,7 @@ The watch shall connect to the mobile phone to retrieve the map info through the
 If connection is not available or GPS position is not available with enough precision (100 m), an error message is displayed.
 The watch shall dynamically display a dot over the map to indicate the GPS position of the watch.
 Default zoom is 100%. The watch shall change the zoom option when button A is pressed circularly between these values:  75% - 50% - 25%  - 100%
-The watch shall change to "Change display view" when button B is pressed.
+The watch shall change to "Display Selection view" when button B is pressed.
 
 REQ 2.10 Settings View
 
@@ -152,13 +150,13 @@ REQ 4.3 Battery failure
 
 If the battery life value is not available, a error is displayed to the user in Clock View.
 
-REQ 4.4 Low-power stand-by mode activation
+REQ 4.4 Low Power stand-by mode activation
 
-The watch shall go to low-power stand-by mode when a movement is not detected from accelerometer for at least 5 seconds or the power indicator is <=10% and >2%. 
+The watch shall go to Low Power stand-by mode when a movement is not detected from accelerometer for at least 5 seconds or the battery state of charge is <=10% and >2%. 
 
-REQ 4.5 Low-power stand-by mode actions
+REQ 4.5 Low Power stand-by mode actions
 
-In Low-power stand-by mode the watch shall perfom these actions in order to reduce power consumption:
+In Low Power stand-by mode the watch shall perfom these actions in order to reduce power consumption:
 
 	- Trigger motor vibration for 2 sec
 	- Set display brightness to "Low"
@@ -166,21 +164,21 @@ In Low-power stand-by mode the watch shall perfom these actions in order to redu
 	- Disable Health status check notification
 	- Turn off display
 
-REQ 4.6 Normal mode activation
+REQ 4.6 Full Power mode activation
 
-The watch shall go to Normal mode when a movement is detected from accelerometer for at least 5 seconds and the power indicator is >10%. 
+The watch shall go to Full Power mode when a movement is detected from accelerometer and the battery state of charge is >10%. 
 
-REQ 4.7 Normal mode actions
+REQ 4.7 Full Power mode actions
 
-In Normal the watch shall perfom these actions:
+In Full Power mode the watch shall perfom these actions:
 
 	- Set display brightness to stored setting
 	- Set Bluetooth to stored setting
 	- Set Health status check notification to stored setting
 
-REQ 4.8 Low-power deactivation
+REQ 4.8 Low Power deactivation
 
-The watch shall deactivate when the power indicator is <2%.
+The watch shall deactivate when the battery state of charge is <2%.
 
 REQ 4.9 Health status check monitoring
 
