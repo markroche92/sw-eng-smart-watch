@@ -1,14 +1,14 @@
-![](http://www.plantuml.com/plantuml/png/hLPVJ_is57ttfx2gIIlZHz1UempHFobKYvekJU5nCiajjPhQp7RQLOZllclIDV1Jt129F8GallUSUuzz3xtLXYbJRWkYmL31jg1VM0OBU66A6QcexnEzuSA-RgbUirpkkNYcArPe-B2I5Knh-aeeNaEMRPwLB4K-aeLKGQ0WBpDGDpVqNWeuZ67V7CSomwN0iCSrCDCSeq5eQQ5IoDO2lpqVcWDt7FOO5gjipVFc45Yj83COT2UBt4LNOCWxOSHs879Gv8sGN_-eBvh3YWjkIzU4L4BqHb817LXkW_cb0j-d2yI17Ws25Ie6UwasY8gINGR1I04pWAys1lf7mJJcW0cIetmNX5vfWt6_-F6J1hLZJmK42sCpSQbIJtzQ75JVSFaovxYp9bltgpYVLciN_avQVIwhJll_DsofgwSBtv82UJirDonAC5AQDJOrB8sHOe1jrLjZUv9YYfhqJ_1IZ44R9G_7JsVXXjyBDofuje7SWbRD7q7DuGNytd2Pfl7iUXHDHt-6uvwLYXdc8peUT8iBejn-XftBFIWhFFGiq6GPHJy8ZU97lCUJINCnLLO4EoWSbSpZnp2vZiA7C3gLKLCvKCSObK36OUVkC5g6QHodzzT9E9eYVDrbUWPr0I972Lf15-5iF9tTjMBE6RUI9l1FYNltXMhdWsc2m7yduL_BS94sRewRPr2QjLHSTo0QBDFxE9akFZ0zILa04mwgq_COTZm39AfDvRLb9hzMFRF1aqBklm6xSfSPsqAygWgsU_5ETsIr9BLRMwcgjxwr0400--S7_Tb2wBa3UWUcelp0KTkgvO1_8IiDz17edDKS3yuSr9PhZSGF752MazLNvLgBhatXirCNN6pGevrJsVkzzzlL5TwTuqvQjjyhFTVGTybj6EtksVK8TqXsp6e71ESK4kBup-5vvroxAMlOdaN8LyVAozlvk-EuHUmEvLQpqsXxNUhh3kckits84QZ5DGWvzwFAysxEEtEdxFRME-0vk-w2uJuktM3giUkUPSUEt8B8ostn7m00)
+![](http://www.plantuml.com/plantuml/png/hLPVJ_is57ttfx2gIIlZHz5Uempz-YU5Qb7JfIayJYQv9LPJczbEkmhntNTDkb1Gt129F8GallUSUuzz3_sf3LEct1P4Ww62RK4_inIMyCmKCr9HpoDwmuLztTA22p27Pw1IcLoUBEYSPNBFnHDTiqB3oKfQCAtf2w5uZLYwULAo5DbO5bBvleAiJ47TtD0xAU0mWNrp74iDbmB37d9WfZb6Wz3IGYMGvWA_FHsQ0tSSzXWMgJJdMNC8hDUG6WowbKNceYimv8qmP3iG6IZoIiYlVxnVD8Cr5zoMhWcfXEYDfG8wjDm6yqi5daUNY0CzwljhL0psKcqG5IMxzFsn0cO0NsqCz8-2QSm1uyT7-Iu8lT86utxneaSDQiSU2_2NncRYKgMU_h0uhBxXycN6SSjDclUhE8zMQnVUJbfzBgjE-_ytRAchfmlFaW9vhPiR5IKOAKsEJOrAOwGOshRghR4zIJ53JVerl1GJq4R9m_7JMRZHzyAD2vvk8BEWLVD7K7l6lTvebIJH_7eSpiP_1fEUbOePvY4w7dIB2wBSVeHTo3qeAppqBD1q5OO_20sZ1xn7qsbpCLLM23ie79KieeSWlWw3-o2iotYdSg1EC2g6bCFEtM6u2f8eIkwkus0yG_ZtBfCpg4iG6KhG2heCvfFP_BOLSy6ubJI6VqhSkozKknZEOWJ-Emx-MWNBf75pt3p3qkHISTs1QBXAxg9ujZnXUfIo02OSLFNp17Oy1KjKcyfBoqn-hNfcWwU5t7y3TkKkSxQ5Q5qLRFVYZUx8YYIrMrTILMzzQm5W0V3F3_hPGkYv0teBfgAiEKvjrNB0lv2M1le8TCvgZWTd0MhBjKRYUmueIsNrTRdMecjJ-EJK1HSRz6ZdLFP-x_rsTOLtvxYJyzi_o0Othg7lddiwsfspJqUuGx9ZLZiWEAUGaER_70ERwdRjfgnHUnOXNnohGTdEtnt7BM9tABUQdKPxqAc-xf3kEjk7685QN8EGip-g1eFppjmjkxNrJdYEhZjYE8vBHvXwxBfdsR4ZFq5avRRu3m00)
 
 # Bluetooth
 
-The PairingAuthorisationFlow effect handles the state machine for pairing. It listens to events in sequence (PairingRequested and ButtonClicked) and return a PairingAuthorised action when its finished (note the boolean data field, a request may be rejected).
-The 
+The PairingAuthorisationFlow effect handles the state machine for pairing. It listens to events in sequence (PairingRequested and ButtonClicked) and returns a PairingAuthorised action when it is finished (note the boolean data field, a request may be rejected).
 
 # PlantUML
 ```plantuml
 @startuml
 set namespaceSeparator ::
+skinparam linetype ortho
 skinparam shadowing false
 skinparam class {
     BackgroundColor<<reducer>> HoneyDew
@@ -98,30 +98,31 @@ class "Bluetooth:: RequestPermissionView" <<view>> {
 '=========== links
 
 "Bluetooth:: PowerLevel" "1"*--"1" "Bluetooth:: PowerState"
-"Bluetooth:: BluetoothDevice" <.u. "Bluetooth:: PowerLevel"
-"Bluetooth:: BluetoothDevice" <.u. "Bluetooth:: DataRecieved"
-"Bluetooth:: BluetoothDevice" <.u. "Bluetooth:: DataSending"
-"Bluetooth:: BluetoothDevice" <.u. "Bluetooth:: PairingRequested"
-"Bluetooth:: BluetoothDevice" <.u. "Bluetooth:: PairingAuthorised"
+"Bluetooth:: BluetoothDevice" .d.> "Bluetooth:: PowerLevel"
+"Bluetooth:: BluetoothDevice" .d.> "Bluetooth:: DataRecieved"
+"Bluetooth:: BluetoothDevice" .d.> "Bluetooth:: DataSending"
+"Bluetooth:: BluetoothDevice" .d.> "Bluetooth:: PairingRequested"
+"Bluetooth:: BluetoothDevice" .d.> "Bluetooth:: PairingAuthorised"
 
-"Bluetooth:: ButtonA" <.. "Bluetooth:: ButtonClicked"
-"Bluetooth:: ButtonB" <.. "Bluetooth:: ButtonClicked"
+"Bluetooth:: ButtonA" ..> "Bluetooth:: ButtonClicked"
+"Bluetooth:: ButtonB" ..> "Bluetooth:: ButtonClicked"
 
 
-"Bluetooth:: PairingAuthorisationFlow" <.d. "Bluetooth:: ButtonClicked"
-"Bluetooth:: PairingAuthorisationFlow" <.d. "Bluetooth:: PairingRequested"
-"Bluetooth:: PairingAuthorisationFlow" <.d. "Bluetooth:: PairingAuthorised"
+"Bluetooth:: PairingAuthorisationFlow" .u.> "Bluetooth:: ButtonClicked"
+"Bluetooth:: PairingAuthorisationFlow" .u.> "Bluetooth:: PairingRequested"
+"Bluetooth:: PairingAuthorisationFlow" .u.> "Bluetooth:: PairingAuthorised"
 
-"Bluetooth:: StoreNameOfDeviceRequiringPairing" <.. "Bluetooth:: PairingRequested"
-"Bluetooth:: StoreNameOfDeviceRequiringPairing" <.. "Bluetooth:: PairingAuthorised"
+"Bluetooth:: StoreNameOfDeviceRequiringPairing" ..> "Bluetooth:: PairingRequested"
+"Bluetooth:: StoreNameOfDeviceRequiringPairing" ..> "Bluetooth:: PairingAuthorised"
 
-"Bluetooth:: RequestPermissionView" <.. "Bluetooth:: GetNameOfPairing"
+"Bluetooth:: RequestPermissionView" ..> "Bluetooth:: GetNameOfPairing"
 
-"Core Architecture:: Store" ..> "Bluetooth:: BluetoothDevice"
-"Core Architecture:: Store" ..> "Bluetooth:: StoreNameOfDeviceRequiringPairing"
-"Core Architecture:: Store" ..> "Bluetooth:: RequestPermissionView"
-"Core Architecture:: Store" ..> "Bluetooth:: PairingAuthorisationFlow"
-"Core Architecture:: Store" ..> "Bluetooth:: ButtonA"
-"Core Architecture:: Store" ..> "Bluetooth:: ButtonB"
+"Core Architecture:: Store" <.. "Bluetooth:: BluetoothDevice"
+"Core Architecture:: Store" <.. "Bluetooth:: StoreNameOfDeviceRequiringPairing"
+"Core Architecture:: Store" <.. "Bluetooth:: RequestPermissionView"
+"Core Architecture:: Store" <.. "Bluetooth:: PairingAuthorisationFlow"
+"Core Architecture:: Store" <.. "Bluetooth:: ButtonA"
+"Core Architecture:: Store" <.. "Bluetooth:: ButtonB"
+@enduml
 @enduml
 ```
