@@ -11,7 +11,6 @@ state "Activate ECG" as Aecg : do: Display ECG information
 state "Activate Sp02" as Asp : do: Display Sp02 information
 state "Activate Map" as Am : do: Display Map information
 state "Activate Settings" as As : do: Display Settings information
-state "Deactivate Display" as Dd : do: Turn off display
 
 state "Display Selection" as Dms{
 
@@ -52,7 +51,5 @@ Asp -up-> Ssp : Press\nButton B
 Am -left-> Sm : Press\nButton B
 As -left-> Ss : Press\nButton B
 
-Dms --> Dd : Hold\nButton A & B\nfor 3 secs
-Dd -> [*]
 
 @enduml
