@@ -1,4 +1,4 @@
-![](http://www.plantuml.com/plantuml/png/bLF1ZjCm4BtxAwm8YQwWAxX68TgbYm09QIMsWWiNhprfhRfsvPcqL8X_Pn8toWAXfhbOTgVllNblvWP9HMgtJY2Gz6eBk5CQ7c2deg8GPLaAt5ZVNRSIryg4W_KhsIY7yEGNxHIY_24aVs-LtgnYQBrP11TYLKKmhOPOr_93y72yWyDqdT9aW-UohsjGD5s3u35qK4lGQyzlg-DquTx2WSlkervRCrq2JGEQkEXzSEPVT8vBUi9FQW_UG1G_XNZ-PloaWSPwsqb7OJr1RDX1MIn217dRqHD3j17AKjxs7LRBkf1ZkvrjB-YuWn8fihbyCufKkMIc7E3dP6qXHvSJNhhDa1H1AH-wuwLCZ8ECgzDxbeRhUjUPPV0_aGJ_aHkVNPNxO4r_lmFk8Ho7fppokpu3HXxJOEHvKehFolj7XBXNZmwgf1hh_zAROcFSCSAa6Rw3RWbO8GxDP-6-y2mnL9gfmTzk5fxqcJPWMWspG_V_XbS53Y5kJY1LjOYW2FZQrynE6MBN0LMdSEihDgGN-viTVNPrpYkU9SihJNez-oFz8RJapsomQJJlv52ckKNm58Dp42Sw_6jNdFKR5EASJSLh1fhF-Ro-zaLcx4jPIwsSGt5sRejNZ3N05cTIIeY3PP23pKiTLpv1jyYWPpVXGgtE8e57IK4gR-GtFuhdDv7DZ3akvBeCDtcJMTECDPVXfdrDc6bDKTpmsMxTBm00)
+![](http://www.plantuml.com/plantuml/png/bLFDZjCm4BxxAKOH4brWAxX68TgbYm09QILQmOMBDvaqLbsxyZWj5UBT6SSf3KkfkxrOTgRVV3ypD-IbyzrQ2q8FHgwHDhB2EMwaazuwo7D1AsN2TGrQ6VJx3O9rlhMZ3zJAskwKMK8ZDU7eIwKb4VmKmBztibejdUrCFRFQkg9mM7SLkhA4ZzRW_Wvtf-javPKrNFQjHUbFrn0QiW5gWLLh-6svFrsuLRZZidjNjQe-NO9DWvNdeWzMr_zhfxcaR_XPRj7KwCGl8Pw_FVwWnaOP5QYJKCQZQzXQo6RM8To6zfuXEeTv3hUzmc9HPZ2IoxQz37xdv1sRoxTQUfalk5CAy4kqDeEnom4ltYRafSSSvk5u1R7ZWSRLy7v1ctdlUWOZ_qCJQpwnyCbLlhMgxkzto1hi_l2KHdxVPv31A0r6levCwLb-_q3ejl91On5PKtaHtnXR1gC88sVyWLNdaHdIXUA_yYHby6UYehjX4aOgu_oVviAzCVo_uKN1dNMh0QGePWwP0b_xcicG80N-lXYYBQ_OZfxgNsRqoPKfftYI56-whzh9u-o7oA8xauD9H-i6VnBYPjPmtbgZ-rVXuptHogn8Y7CcPMyoU75zpUTqQhB4oETGGYMr9d5sPgVJycmm0URW4X9uUnuku2MNEs1sX2JEpdpsEgWCW45uagHMvD44XY1D3TzDclKu7-xnr5vFnGroKWjvj2QDcnw6i9iHCwuaYHi-kxN-3G00)
 
 # Core Architecture
 
@@ -38,10 +38,11 @@ In MVC side of our application, the model is replaced with the Store (an Observa
 
 # PlantUML
 
-```plantuml
+
 ```plantuml
 @startuml
 set namespaceSeparator ::
+skinparam linetype ortho
 skinparam shadowing false
 skinparam class {
     BackgroundColor<<reducer>> HoneyDew
@@ -92,13 +93,12 @@ class "Core Architecture:: Controller" <<framework>> {
 
 '=========== links
 
-"Core Architecture:: Store" "1" <-- "1..n" "Core Architecture:: Reducer" : > calls
-"Core Architecture:: Sensor" "0..n" <-- "1" "Core Architecture:: Store" : > dispatches
-"Core Architecture:: Sensor" "1" <-- "1..n" "Core Architecture:: Action<T>" : > uses
-"Core Architecture:: Effect" "0..n" <-- "1" "Core Architecture:: Store" : > listens to and \ndispatches to
-"Core Architecture:: Controller" "1" <-- "1" "Core Architecture:: Store" : > listens to
-"Core Architecture:: Controller" "1" <-- "1..n" "Core Architecture:: Selector" : > uses
-"Core Architecture:: Controller" "1" <-- "1..n" "Core Architecture:: View" : > renders
+"Core Architecture:: Store" "1" *-- "1..n" "Core Architecture:: Reducer" : > calls
+"Core Architecture:: Sensor" ..> "Core Architecture:: Store" : > dispatches to
+"Core Architecture:: Sensor"  ..> "Core Architecture:: Action<T>" : > uses
+"Core Architecture:: Effect" "0..n" ..> "1" "Core Architecture:: Store" : > listens to and \ndispatches to
+"Core Architecture:: Controller" "1" ..> "1" "Core Architecture:: Store" : > listens to
+"Core Architecture:: Controller" "1" ..> "1..n" "Core Architecture:: Selector" : > uses
+"Core Architecture:: Controller" "1" *-- "1..n" "Core Architecture:: View" : > renders
 @enduml
-```
 ```
