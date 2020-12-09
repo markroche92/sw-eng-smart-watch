@@ -1,0 +1,31 @@
+@startuml
+
+skinparam shadowing false
+
+start
+
+:Device powers on;
+
+repeat 
+
+repeat 
+
+fork
+    :Measure blood\noxygen level (%);
+fork again
+    :Measure heart\nbeats per minute;
+fork again
+    :Check for irregular\nheart beat;
+end fork
+
+repeat while (Blood oxygen level > A % &&\nheart rate > B bpm &&\nheart rate < C bpm &&\nirregular heart beat not detected) is (yes)
+-> no;
+
+:Display health\ncheck notification;
+:Trigger motor\nvibration (2 secs);
+
+repeat while (device deactivated?) is (no)
+-> yes;
+
+stop
+@enduml
