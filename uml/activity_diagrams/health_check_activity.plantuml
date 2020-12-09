@@ -1,0 +1,29 @@
+@startuml
+
+skinparam shadowing false
+
+start
+
+:Device is powered on;
+
+:Get Stored\nHealth Check Notification\nSetting;
+
+while (Device Activated?) is (yes)
+    repeat
+        repeat
+            fork
+                :Measure blood\noxygen level (%);
+            fork again
+                :Measure heart\nbeats per minute;
+            fork again
+                :Check for irregular\nheart beat;
+            end fork
+        repeat while (Health Check\nNotification Enabled ?) is (no) 
+        -> yes;
+    repeat while (Blood oxygen level > A % &&\nheart rate > B bpm &&\nheart rate < C bpm &&\nirregular heart beat not detected) is (yes)
+    -> no;
+    :Display health\ncheck notification;
+    :Trigger motor\nvibration (2 secs);
+endwhile (no)
+stop
+@enduml
