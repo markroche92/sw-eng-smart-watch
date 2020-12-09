@@ -1,0 +1,39 @@
+@startuml
+participant DeactivatedWatch 
+participant DisplaySelection 
+participant SettingsView
+participant Storage
+participant BlueTooth
+participant Brightness
+participant HealtStatusCheck
+participant DisplayError 
+
+opt Settings
+  DisplaySelection --> SettingsView : GoTo Settings
+end
+opt BlueTooth
+  SettingsView --> BlueTooth: change BlueTooth ON/OFF
+end
+opt Brightness
+  SettingsView --> Brightness: change Brightness to value 25% / 50% / 75% / 100%
+end
+opt HealtStatusCheck
+  SettingsView --> HealtStatusCheck: change HealtStatusCheck ON/OFF
+end
+opt Selections
+  SettingsView --> Storage: Save Settings
+  Activate Storage
+  Storage --> SettingsView : StorageResult
+  Deactivate Storage
+opt StorageResult == StorageError
+  SettingsView --> DisplayError : SendError(StorageError)
+  Activate DisplayError
+  DisplayError --> SettingsView 
+  Deactivate DisplayError
+end 
+  SettingsView --> DisplaySelection : GoTo Selections
+end
+opt Power Off
+  DisplaySelection --> DeactivatedWatch : Deactivate
+end
+@enduml
