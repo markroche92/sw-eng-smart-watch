@@ -1,4 +1,4 @@
-![](http://www.plantuml.com/plantuml/png/VPFHRzem4CRV_LTOQDAejdNlKOPA2u9Asre5j3rEr-H2B8mTsHTOLF6_puxPS6XOdj3TZ-yxVNU-imI6cfrap6w5gi70ZjiA2dqGQiDBa1QZZXGAgQsHQqELZXgv16lvA-FkkuTykp6wKSM3bjgagS6YoT5C9dof5ROpF0npa9FGoc4_AmGQPYmggxtK6lDAkTgc7GRt0WyEUp9v9OfX1CiIStBGGilYcfrqI6Vu5VQe2ZJioDZxB-UF5rWA9VpebjLE03R8Hm_Q89zwSt82ZS7HAPsGr6X5sjVIj7JnuK6RhRC8XFy-fEc3GI1qrGuTdqAq2LyXfTafqfj___XaoU7lagSNYsOFBnBJ5Nc1Cn7ojJrc6cgJitCXR0sKL-E09pmWDybUY-ACXMJ6VmFoOuLVDqatIKSUNLZdJ9O8XdW6r8KHfV5SQTArHAfQkzCR0tNLycZNKIvQFRgin_4qeJn3IqQtSUSOUtJctZj3AFnjH_SMwVlhJaRB-JHR_ygcw_ddR3wTFNvVZAA0W21vDK4cuQNKGF_n-o7mmCCzzgrCTqvN1xv78FkCvfjG3U5fuJn-JP5MA8wxv1FUBVuZlrnWgBzrMY3rpNXy-94B_iRSjTt8lB_ZYnSXXTfQra_WzdRoreYnmTLxzd9VR3YF8VIQQdDxUap3MZ7Gdprgi3jKHREJVm00)
+![](http://www.plantuml.com/plantuml/png/VPFHRzem4CRV_LTOQDA2kh7tA4EbWA3IjbO1RO-Jcro8XR4Z-mABAlxtsJ5R71hg9pZ_ydsdxyxt1fd6-Y08GOu2w1hiVveo14BCdikAQNQWfcIvEd6vemKJ1e8RmILWKm5L6aiLN6I26KDV2RNdWMNxdLQrpETAA9qa6l8w0psTqhMIq2pWDCon3BcI5ljL0iDXne0qoabj8IkbhUsQOV38uMIn9vsLF1z6e2WWGmkjbCXlsGcBj8RVs15a3fgS2VdujJiqXu9BxbetfB82R0TqD5SQwCoPenMeDOmkwVYaHXjKhfOaXOqFJahlhOKZ_BbBaha6Xc2hBHfTGZGntG0cwINIyVylFXkq-8VuwSM0Fh8N0Sa6dK17-7nDZvdvMaVTvTnK3BCoydXCFJAEZuhd7UQJYVu5vDholyPnsqbBdcrONIRTjhamWZIUIuMg4e1bOmvgfrbLDZIOTP2Baeysw-Yw6oKNO52h9hmvXnwjkVDEWULkjuDz2_JTTiUZzNAMRd-di-toIxgSBHv_h4P1G0nP_AgzJ4mBeHYUtp7yoU54_KBslNIxJpSxVW26vXdqTovhXCl4QVYS0YrVZDheOzfE_XEzdg2lltLQ0VRDQBZvWGlyWSnUHrQgF-Ih9o6ut1lIJs0ocRur8cHmzewz7XWPpcC8lQLQJowlQLWh1Fgz1nVt8FFw8Fu2)
 
 # Heart Rate
 
@@ -8,6 +8,8 @@ The Photoplethysmography class encapsulates the functionality for the sensor. On
 
 ```plantuml
 @startuml
+
+title Heart Rate
 
 skinparam shadowing false
 skinparam linetype ortho
@@ -40,7 +42,7 @@ package "Heart Rate" {
 
     class HeartRateReading <<action>> {
         +type:"HEART_RATE/READING"
-        +data:{reading: float
+        +data:{reading: float}
     }
 
     class HeartRateView <<view>> {
@@ -66,6 +68,5 @@ BeatsPerMinuteReducer ..> HeartRateReading
 Photoplethysmography .u.> Store
 BeatsPerMinuteReducer .u.> Store
 HeartRateView .u.> Store
-
 @enduml
 ```
