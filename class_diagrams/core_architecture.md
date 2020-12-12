@@ -1,4 +1,4 @@
-![](http://www.plantuml.com/plantuml/png/bLFDZjCm4BxxAKOH4brWAxX68TgbYm09QILQmOMBDvaqLbsxyZWj5UBT6SSf3KkfkxrOTgRVV3ypD-IbyzrQ2q8FHgwHDhB2EMwaazuwo7D1AsN2TGrQ6VJx3O9rlhMZ3zJAskwKMK8ZDU7eIwKb4VmKmBztibejdUrCFRFQkg9mM7SLkhA4ZzRW_Wvtf-javPKrNFQjHUbFrn0QiW5gWLLh-6svFrsuLRZZidjNjQe-NO9DWvNdeWzMr_zhfxcaR_XPRj7KwCGl8Pw_FVwWnaOP5QYJKCQZQzXQo6RM8To6zfuXEeTv3hUzmc9HPZ2IoxQz37xdv1sRoxTQUfalk5CAy4kqDeEnom4ltYRafSSSvk5u1R7ZWSRLy7v1ctdlUWOZ_qCJQpwnyCbLlhMgxkzto1hi_l2KHdxVPv31A0r6levCwLb-_q3ejl91On5PKtaHtnXR1gC88sVyWLNdaHdIXUA_yYHby6UYehjX4aOgu_oVviAzCVo_uKN1dNMh0QGePWwP0b_xcicG80N-lXYYBQ_OZfxgNsRqoPKfftYI56-whzh9u-o7oA8xauD9H-i6VnBYPjPmtbgZ-rVXuptHogn8Y7CcPMyoU75zpUTqQhB4oETGGYMr9d5sPgVJycmm0URW4X9uUnuku2MNEs1sX2JEpdpsEgWCW45uagHMvD44XY1D3TzDclKu7-xnr5vFnGroKWjvj2QDcnw6i9iHCwuaYHi-kxN-3G00)
+![](http://www.plantuml.com/plantuml/png/bLF1ZjCm4BtxAqOLWYwm5LoZ42rq4I0XhKHNSE7YZIUjLTUkF4vBXVXtfhQpww3qG2vHx3TlthmtkQ4WVUXtHX06i7A7j9Sjhd0llGpEGrK9scfx_jo1qHR3QO_WVDYuue8sKhcZjclef24iRbeZYU2t07u-o7QxzgwtQkcCytNjKVKj-gQ1pyxYwHQFqpZP1kqimtviK8Pf3A4bTwQwntPZ-MnzcWOUD1uPTkVRZLRJ4EmwR0E3FZcZBhKp38aDlye3MeLU_17YnRkd1nHsskgpT19YpmnoZJ1REe_m_jmzC4FlSPRjqJQWxsJBjt7U-hw1OdO6vUVLEOEAWcV3dmwL3BAwZzyiP4puBHaDfUK5NpgSKv01ArYTNwyXDQwocAjyFis_YkP3aKB1xkmNTc5-LHsSLkNnBLBmxfHlffa_nYXWo6J4V9qaqhFgxe7G7-I3mJh9fUQIq1GRb0cMOl4Njdr0raINn_tEAmHvayP6naMO62Zz1YjkXrpOURd3e_FRSNLTBproKpwDo7aEYzXx37KEiRbwCY1g78qVGsh-mwAqEvhsChIR-R-XZoDBbiq7vwf7EqktHXCldGtU6OD-Qcp6CdhyqnXjjoH4ichsTWOlhw_vlLZOsUCQLz10AuqX47dpOB5eikXq6uqKQNl6bqPJu2BekEmv_BJ3x4ZGYA73cAwi4KFBHR_8EKL8GHFSq7Zs9kgEK9ubmql6u41QnJB6zOLlN7UPO1Ai8ZXs7WAA9JqXbU3ahXhiZMiTWMcDITpmkz-Plm00)
 
 # Core Architecture
 
@@ -10,13 +10,37 @@ CQRS was first described by Bertrand Meyer as a command–query separation. He s
 
 In MVC side of our application, the model is replaced with the Store (an Observable (Gamma et al., 1994)) which holds the application state. Usually, we would use the Controller to handle binding events to the view, but in our case, the user is unable to interact with the view directly, and so we use it only for deciding which view to show.
 
+There is a concerted effort in the architecture to limit any inheritance chains and instead focus on composition. Immutability and limiting side effects is also a primary design goal for the system. Data mutation is one of the core sources of design and debugging complexity. Immutable data removes some of this complexity. We also gain the added benefit of being able to efficiently parallelise code without the locking that is usually needed in multithreaded architectures. 
+
 ## Overview of core objects
-- Actions are simple messages for the system. Anything that happens is modelled as an action. Actions can be events (something that happened in the past) or a command (an action that we want to be taken).
-- Reducers take the current state of the system and an action and returns a new state based on that action. Reducers must be pure and side-effect free. Some literature describes these as projections. We can also wrap reducers to create middleware. Some operations that use this pattern are: logging, snapshotting (taking a snapshot of the current state to allow for faster startup), undo/redo, and developer tooling.
-- Effects listen for actions dispatched to the store and can create actions. Effects can be used to handle async tasks. An example of this is external communication. We listen to a data send action, and we dispatch a new action based on the response. Many of the patterns found in Enterprise Integration Patterns (Hohpe & Woolf, 2003) would be implemented here (action deciders, action transformers and asynchronous actions).
-- The controller listens to the store for updates and rerenders the views as necessary. It is also responsible for swapping views. This is analogous to a router in web programming.
+- Actions are simple messages for the system. Anything that happens is modelled as an Action. Actions can be events (something that happened in the past) or commands (an action that we want to be taken). All Actions are plain objects (no methods/functions attached to the class/prototype) and immutable (once created, their internal values cannot be changed).
+- Reducers take the current state of the system and an action and returns a new state based on that action. Reducers must be pure and side-effect free. Some literature describes these as projections. We can also wrap reducers to create middleware. Some operations that use this pattern are: logging, snapshotting (taking a snapshot of the current state to allow for faster startup), undo/redo, and developer tooling. Reducers do not mutate the original state, they make a copy and make their changes on that copy. An alternative to this is through the use of persistant data structures and structural sharing [16] to remove the need for defensive copying and the possibilty of developers making mistakes.
+- Effects are responsibe for:
+    1. Deciding how to process Actions.
+    2. Transforming from one Action type to another.
+    3. Performing side effects (calling services or hardware).
+
+- Effects listen for actions dispatched to the store and can create actions. Effects listen to the Observable stream of Actions being dispatched to the Store. They are then free to read the Action contents, transform it to a new Action type, and to make an asynchronous call and dispatch an Action with the results of that call. An example of an asynchronous call is external communication. We listen to a data send Action (a command), and we dispatch a new action based on the response (an event). Many of the patterns found in Enterprise Integration Patterns (EIP) (Hohpe & Woolf, 2003) would be implemented here (action deciders, action transformers and asynchronous actions). Effects are used as the primary container for side effects (along with sensors), limiting their impact to the fringes.
+- Sensors take readings from the hardware and dispatch Actions (events) with the readings.
+- The controller listens to the store for updates and rerenders the views as necessary. It is also responsible for swapping views. This is analogous to a router in web programming. Due to the immutable nature of the Store it can do a simple object comparison to determine if the Store has changed and it should rerender.
 - Views query the store for data and contain the logic to render it to the screen.
-- Sensors take readings from the hardware and dispatch actions.
+- Selectors remove the need for the views to understand the shape of the data in the store. It also gives us the ability to have a seperate read and write store (not used in our model but could be added later).
+- The Store, while used across our applications it acts only as a container for the state and a message bus. It also handles wiring, but this can be replaced by a dependency injection container if available.
+
+# Effects and Enterprise Integration Patterns
+The work of Hohpe and Woolf on EIP can be used to model and discuss the interactions inside Effect classes. We use an observable stream of Actions as the primary form of interaction in Effects. In doing so, we can treat the observable as a message queue and Actions as messages. Their patterns give us a rich visual nomenclature akin to UML. An overview of the core patterns and their relation to the overall flow is discussed below. Messages in EIP would be Actions. Routing and transformations would be internal to an Effect. Endpoints relate either to a side-effect (e.g. calling hardware, external service) or to the Store if our output is another message.
+
+![](https://www.enterpriseintegrationpatterns.com/img/inside_back_cover.png)
+
+Some common patterns that are used across Effects are:
+- One of the common patterns used is to listen for a single Action type. This is modelled as a filter (in EIP nomenclature).
+ ![](https://www.enterpriseintegrationpatterns.com/img/MessageFilter.gif)
+- We can split a single Action into multiple actions (a splitter). One everyday use case for such a pattern is where a sensor outputs multiple types of data. We may want to be able to model our system with more granular Action types. A splitter can take the overall type and break it down to its constituent readings.
+ ![](https://www.enterpriseintegrationpatterns.com/img/Sequencer.gif)
+- We can also combine multiple Actions into a single Action (an aggregator). The use of this pattern can be seen when using the IMU. Very often, a single reading contains little information when in isolation. A series of reading is needed, from which we extract some relationship (e.g. a type of movement detected, or a direction change). In this case, we would use an aggregator. 
+ ![](https://www.enterpriseintegrationpatterns.com/img/Aggregator.gif)
+
+Even from the limited examples above, being able to model our domain using the EIP patterns brings a level of clarity to Effects that UML alone cannot provide. In our architecture, the two in combination, allow for a macro and micro view of the system. We focus mainly on the macro view in this document and leave the micro view to the individual developers.
 
 # Bibliography
 
@@ -35,9 +59,9 @@ In MVC side of our application, the model is replaced with the Store (an Observa
 - [13]B. Meyer, Object-Oriented Software Construction, 2nd edition. Upper Saddle River, N.J: Pearson College Div, 2000.
 - [14]J. Nicola, M. Mayfield, and M. Abney, Streamlined Object Modeling: Patterns, Rules and Implementation, PAP/CDR edition. Upper Saddle River, NJ: Prentice Hall, 2001.
 - [15]L. Pacioli and  donor D. Burndy Library, Su[m]ma de arithmetica geometria proportioni [et] proportionalita. [Venice : Paganinus de Paganinis], 1494.
+- [16]J. R. Driscoll, N. Sarnak, D. D. Sleator, and R. E. Tarjan, Making Data Structures Persistent, vol. 38. Academic Press, 1989.
 
 # PlantUML
-
 
 ```plantuml
 @startuml
@@ -54,51 +78,58 @@ skinparam class {
 }
 
 '=========== definitions
-interface "Core Architecture:: Action<T>" <<action>> {
- +type:string
- +data:T
+
+package "Core Architecture" {
+    interface Action<T> <<action>> {
+        +type:string
+        +data:T
+    }
+
+    interface Reducer <<reducer>> {
+        +reduce(state: State, action: Action): State
+    }
+
+    interface Sensor <<sensor>> {
+        +onInit():void
+        +onDestroy():void
+    }
+
+    interface Effect <<effect>> {
+        -actions$:Observable<Actions>
+    }
+
+    interface Selector <<selector>> {
+        +execute():state
+    }
+
+    interface View <<view>> {
+        +render():void
+    }
+
+    class Store <<framework>> {
+        +<<Create>> Store(reducers: Set<Reducer>)
+        -state$:Observable<State>
+        -actions$:Observable<Actions>
+        +dispatch(action: Action):void
+        +select(selector: Selector):state
+    }
+
+    class Controller <<framework>> {
+    }
 }
 
-interface "Core Architecture:: Reducer" <<reducer>> {
- +reduce(state: State, action: Action): State
-}
-
-interface "Core Architecture:: Sensor" <<sensor>> {
- +onInit():void
- +onDestroy():void
-}
-
-interface "Core Architecture:: Effect" <<effect>> {
- -actions$:Observable<Actions>
-}
-
-interface "Core Architecture:: Selector" <<selector>> {
- +execute():state
-}
-
-interface "Core Architecture:: View" <<view>> {
- +render():void
-}
-
-class "Core Architecture:: Store" <<framework>> {
- +<<Create>> Store(reducers: Set<Reducer>)
- -state$:Observable<State>
- -actions$:Observable<Actions>
- +dispatch(action: Action):void
- +select(selector: Selector):state
-}
-
-class "Core Architecture:: Controller" <<framework>> {
-}
 
 '=========== links
 
-"Core Architecture:: Store" "1" *-- "1..n" "Core Architecture:: Reducer" : > calls
-"Core Architecture:: Sensor" ..> "Core Architecture:: Store" : > dispatches to
-"Core Architecture:: Sensor"  ..> "Core Architecture:: Action<T>" : > uses
-"Core Architecture:: Effect" "0..n" ..> "1" "Core Architecture:: Store" : > listens to and \ndispatches to
-"Core Architecture:: Controller" "1" ..> "1" "Core Architecture:: Store" : > listens to
-"Core Architecture:: Controller" "1" ..> "1..n" "Core Architecture:: Selector" : > uses
-"Core Architecture:: Controller" "1" *-- "1..n" "Core Architecture:: View" : > renders
+Store "1" *-- "1..n" Reducer : > calls 
+Sensor  ..> Action : > create
+Effect ..> Action : listens for & \ndispatches >
+Reducer ..> Action : > listens for
+
+Sensor .u.> Store : > dispatches to
+Effect "0..n" .u.> "1" Store : > listens to and \ndispatches to
+Controller "1" .u.> "1" Store : > listens to
+Controller "1" .d.> "1..n" Selector : > uses
+Controller "1" *-d- "1..n" View : > renders
 @enduml
 ```
