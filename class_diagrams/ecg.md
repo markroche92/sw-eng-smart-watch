@@ -1,4 +1,4 @@
-![](http://www.plantuml.com/plantuml/png/VLFHZjem47ptLrYeKZcrfUzHYeu2eYTLHO9J--opDuc5iP7jGD69V-ywXh9mQVq26i_kh6SdZo4A7zkjOInijDq9BxOyD4AvWxOrhuG9G6wCjX2FE-3EnyQH2sb42FoLSJnVXTpKthLMJPrnlYmzg5Q27u_vDsVXE8D3Fq_8g9r5sgy6HEpd1B31fLRF81kBM7ti9-ur792szBBHgfy2LGKo8cdXZFgNd45A9_XTxC4gyEp4sFilryCLLDhgD7fWZEsmXQY13wRE0vya-OWjMW-3ip_Pgy4wkeILPOK6mi7v3OfaHZeVodBgGKH0jACEppQ6WgyXbgkpgGz_Apw5YFHtnV8bWD-B5mFbEY7ZAoCx76uuauoDhyfAXvs8iXbcUi4pvQ7OEwskjEpDy69H6Yl_UoYwIJhcYPs89_FfujQ5UQhmJWgljAjJaiYAYHdEFg75Gpf2XcSGiFv8RqwC2iXw1KAbC9E0aSufpaKQxFDgFfaz_LWCY14YYkBLv_g2LyQ9s2ln4yF6BvcZtNqNcVzEb_V8oMT26sHms1cA3gUVZ_n-Bnb_stu14HMMU_3FUWkSnfb8m6-GRGGSaj_jxJRdHjjDOEpotD5eV2V0sDjr8eliW947tztqrRQZS_Pf7KNpA1HYZ-XukpL_0000)
+![](http://www.plantuml.com/plantuml/png/VLFHZjem47ptLrYeKeEkfUzHYeu2eYTLHO9J--opDuc5iP7jGD4f_zvrp1K7qlCBQ3oxivwTF3hFh6_sYX0llGAwLC2zDPnP8KrbsPvco_bgJ8ZRINrW0N0r4-OaTKLBfXmaDqfgyES3K6DzRP8BhfXpz9LGFDyOtrNMD5hCZJAsA2o8XeETJkbte-6yWDCmZt4lZKRQxngO7-OuqCw4Li_0QurOTHuc7YMSaBQsl9PYc09bYLuWQMMK-9zSiAiJ_C6Ee0LOqXBoyUlrK06br3ACxWWX1sp1Ag2ZkR50Pq7UOul6mkZYJ_HgjFKcO4LHee5mCdQ78e4HpqDHp2qm3uXsrEnYeylf5donkPWw_bVnsNcaVyZNBmxiaRqeABO1cLuPqM7NuymYTcKz2EaEpFCwY_ISHieuFnefhhJeJVPcKHWh_XldtIGTioLjuWachU_2VHgJ5ITc6Fs45cUt8nYz08Vrv_Ic9Qa0hpR0H0Xp4h2aSuXp7WRxibdE5ay_LwF42EPP_cfZVKvBPPXl1pL-OTfe35s_lUqoy-vuSP4q_KwI1X7CEaVHul3pYTuk9kBtxLVWKM5z1Fiizq3JF2SIy0Tuum67f3UBwmTTIRrpXBmzTpAPtWWGShzFP2LB8Cc3-pU3jSta4lwqBaNZA2b47j7nPg_-0W00)
 
 # Electrocardiogram (ECG)
 
@@ -10,6 +10,7 @@ The Electrocardiogram class encapsulates the functionality for the sensor. Once 
 
 ```plantuml
 @startuml
+title Electrocardiogram (ECG)
 
 skinparam shadowing false
 skinparam linetype ortho
@@ -23,6 +24,8 @@ skinparam class {
 }
 
 '=========== definitions
+
+
 package "Core Architecture" {
     class "Store" <<framework>> {
         +<<Create>> Store(reducers: Set<Reducer>)
@@ -41,7 +44,7 @@ package "ECG" {
 
     class EcgReading <<action>> {
         +type:"ECG/READING"
-        +data:{reading: float
+        +data:{reading: float}
     }
 
     class EcgView <<view>> {
@@ -57,6 +60,7 @@ package "ECG" {
     }
 }
 
+
 '=========== links
 
 EcgView ..> GetEcgOverTime
@@ -67,6 +71,5 @@ EcgReducer ..> EcgReading
 Electrocardiogram .u.> Store
 EcgReducer .u.> Store
 EcgView .u.> Store
-
 @enduml
 ```
