@@ -9,7 +9,7 @@ The device shall provide two general purpose input buttons for interacting with 
 
 REQ 1.2 Display
 
-The device shall communicate with the user thought the output display.
+The device shall communicate with the user through the output display.
 
 REQ 1.3 Activation
 
@@ -17,7 +17,7 @@ The device shall power on when button A is pressed for more than 3 seconds.
 
 REQ 1.3 Deactivation
 
-The clock shall power off when buttons A+B are pressed for more than 3 seconds in any moment.
+The device shall power off when buttons A+B are pressed for more than 3 seconds at any moment.
 
 
 
@@ -25,7 +25,7 @@ PART 2 Display views
 
 REQ 2.1 views
 
-The views provided by the watch shall be the following ones:
+The views provided by the smartwatch shall be the following ones:
 
 - Clock view
 - Display Selection view
@@ -38,12 +38,12 @@ The views provided by the watch shall be the following ones:
 
 REQ 2.2 Initial view
 
-The initial display state upon power-on shall be the clock view.
+The initial display upon power-on shall be set on the clock view.
 
 REQ 2.3 Clock view
 
-The watch shall display the current time using clock with digits (hours and minutes)
-The watch shall display the battery life indicator
+The watch shall display the current time using clock with digits (hours and minutes).
+The watch shall display the battery state of charge indicator.
 The watch shall change to "Display Selection view" view when button B is pressed.
 
 REQ 2.4 Display Selection view
@@ -97,20 +97,20 @@ A list of options are available:
 	- brightness  
 	- bluetooth on/off 
 	- health status check on/off
-	- return to change view menu
+	- return to "Display Selection view" menu
 
 The watch shall change option when button A is pressed (default brightness).
 The watch shall change option value or activate the selected option when button B is pressed. 
 
 When "brightness" is selected, the user can select circularly between these possible values: 
 	Mid (50% - default) 
-	High (75%)
 	Low (25%)
 	Very High (100%)
+	High (75%)
 
-when "bluetooth" is selected the user can choose to activate o deactivate the bluetooth.
-when "health status check" is selected the user can choose to activate o deactivate the health status check notification.
-when "return to change view menu" is selected, return to "Display Selection" menu and save the current settings.
+when "bluetooth" is selected the user can choose to activate or deactivate the bluetooth.
+when "health status check" is selected the user can choose to activate or deactivate the health status check notification.
+when "Display Selection view" is selected, return to "Display Selection" menu and save the current settings.
 
 
 
@@ -130,7 +130,7 @@ The permanent storage shall provide the possibility to store this information:
 
 REQ 3.3 Load data
 
-At power-on the watch shall read the stored data and apply them before enabling the interaction with the user.
+At power-on the device shall read the stored data and apply them before enabling the interaction with the user.
 
 
 
@@ -148,11 +148,11 @@ The movement is triggered when a force of X Newton is detected from the accelero
 
 REQ 4.3 Battery failure
 
-If the battery life value is not available, a error is displayed to the user in Clock View.
+If the battery state of charge is not available, an error is displayed to the user in Clock View.
 
 REQ 4.4 Low Power stand-by mode activation
 
-The watch shall go to Low Power stand-by mode when a movement is not detected from accelerometer for at least 5 seconds or the battery state of charge is <=10% and >2%. 
+The watch shall go to Low Power stand-by mode when motion by any of the accelerometers is not detected for at least 5 seconds or if the battery state of charge is <=10% and >2%. 
 
 REQ 4.5 Low Power stand-by mode actions
 
@@ -166,7 +166,7 @@ In Low Power stand-by mode the watch shall perfom these actions in order to redu
 
 REQ 4.6 Full Power mode activation
 
-The watch shall go to Full Power mode when a movement is detected from accelerometer and the battery state of charge is >10%. 
+The watch shall go to Full Power mode when motion is detected by one of the accelerometers and the battery state of charge is >10%. 
 
 REQ 4.7 Full Power mode actions
 
@@ -183,4 +183,4 @@ The watch shall deactivate when the battery state of charge is <2%.
 REQ 4.9 Health status check monitoring
 
 The watch shall monitor the Health status periodically according to the available ECG, Hearth rate and Sp02 parameters available.
-If the Health status parameters are considered dangerous, a notification is sent to the user with a display message and a motor vibration for 2 sec.
+If the Health status parameters exceed recommended health data thresholds, a notification is sent to the user with a display message and a linear vibration motor activated for 2 sec.
