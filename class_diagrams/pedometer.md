@@ -1,8 +1,8 @@
-![](http://www.plantuml.com/plantuml/png/jPLVRzem4C3VyociQD9WNQcclKKPQWkiGrhN3cZtx2ON4f7Op3x3KBNllZDskwp2K1wMXpRSdN_ttpdNo1MQfeuY3SW4Rq0lUGPJM7B5KIgM995ULCB-R5XT2S3D4fXKMCgMGfSyb-jAp5d1QmqjJLPphTbZnEYvvDbYhgGH-K3MKgMfWjnaeFfzzaKAs0nXlTkEPrX9GMO_Ik2usqQ3qDAYPf2LWcJppMx3LGLhChjHMLdbkqsWA213ChgITHvoLvF9rk5NlWAHWuf-Hz7RJtyVbaDHYSg6hgF85I8UI0Nimlf6EcyK90cR4WTYbgO5LGpMKYs8wafsagO31Ho195kpZg-PfcE0wSHNiBkrFjL8fc-IcmSDQiKVQaYdQ0yxhIkZ_aT_uMJEuYIlgFsObHrdcZ2dxYOhwMjruXBlFELFOVYtRhBrRglWSxs5N3Q0e2Z7iG255Q-lWMlAkW61TrGRrXbVttLZrkgVJroACUaxRTTI346ZaXil3Rbgp90ZZvz8FCkW1iLTHlVRO3ywbPBenTyDHr22tfsc19xJF2Uig2L79qDebfP3yNjvE8A9En-prlJwUEm69J7bVJOPNGp7twvYNtmAEl711y1JXEMCBq24kRUZuStrQ3QQd4rdeziu01g27J-B-wnaGqujy7di7m_FIu3x_7vFMsQPVjjyY6gxAFlRPuEQcgRXQcE7jz9OPThFkINw1MX3hQ2pdJvxdFwzPoy7sCa3BWUybge2VMcKWFo_-dBfFUSLi_PLuft0ByWCGeT8-jLHlvBqueggAx7GqRuMzdhz_GaahCz-6h2Ha1DxlQqhB0ypmwa4cT5HLqgl5znAovS6bmPr50LND_uGlpizfR-xxvVeq4RPD8Dm6q8cXJODwED9hOiWdCk-JJhChCaUX6Q5LD7URJcUTrmZUuR8uG-depzzkK0pM150CvHxPl2Lr3aGoDxBhA1M76ZJOUOHxJcE5UZ9OSWvYDmqzHy0)
+![](http://www.plantuml.com/plantuml/png/bLHHRzem47xthx2YIODrfPhs5cMeNM4TqhfsGBldQt8X5edDx3CCLVtlit6QqOaq8m_8t7t-lhlBTpat19fiLJA3n2LKQ5QGuWnNe86Kvd7Cp598_xVYfP18snLofQbGUmbJGAOsGYvu3gN1lKnQWZ7yaN7tV8PqkT3AoknIbKedYSRCfgY7G_vLIToES7CO1oa99HtiPu50Xp46fL6UQevf8LriiJqCN0lSEDYDJWkH7OPWdcDA3dIbognDhdIGdU0tMAFCKBCdnjv--llm37CXXI_TC1O64LqgZVp2QvExRpN6CPyv7enuakHkOhXHUkbOmyXEakHI8n2wo0xMgsTct3MaP5fFiBz3dnfoq3VnpOD1lOQ74fCP-SiX6yPeNkGlGYmWJZ9XLa1fqGlGc8TqFruhaGL8QBpttByhepxruvqwUsfwlSLCLKYeNOyJYPe4bDS8ncgiKDAT5CHxa-kxViIRzzSqhkJ4vNlxqagEq91MsphQ9bNP4H14pqoGfbYYXj3H_QxOZo6b5TNX7nO8jNJda2aGCkVdcEUb0WenmchbUQp6EjvUmJJSZtZZtgOplq5nvFe-cuulHfFlLr4zV228w-9RY6U4gpaiKRRptev7DzVZ-NXwDfkFRwCMeX5w-tcwBrfLJZJYUxP_xFPB2szplXUuYNYzRKs9UhSepUjhxN5cgmhqrfjN61AfgNtk6NKuxfFwG6_dFdyT2D_pVmqSuawoNRCHY_Z-VjSg-1jJIzXpL8tFNwvxAUJIiDV6CHWCNzUD-P3_igW56cwSElADe8AnerPfC6Xre-TNbbQM36Ejbeq-HEzEJztluRrYNKxoRRQGXnPJ9Osjq1pDjBy0BRrqEAYRitHub8RdIXyt-85rpEqV-C3-_8L5mt7j20mdzRfd_eTrWOue0mAUkz5rZBMRyuXnTdETeyniLVu1)
 
 
 # Pedometer
-The Pedometer measures the number of steps taken by using data from the IMU. As it requires a window of data to operate on and not a single reading, we feed it into an effect class. This effect class can be used to do a simple detection of a step by finding the local maxima of the acceleration magnitude data. Only peaks with a minimum height above one standard deviation are treated as a step. [1] It may also be used with an AI algorithm for more accurate detection of steps or to detect push (and push type) if the user is in a wheelchair. [2] Based on the number of steps, we can do a simple calculation for the number of calories burned (CaloriesBurnedReducer)[3][4].
+The Pedometer measures the number of steps taken by using data from the IMU. As it requires a window of data to operate on and not a single reading, we feed it into an effect class. This effect class can be used to do a simple detection of a step by finding the local maxima of the acceleration magnitude data. Only peaks with a minimum height above one standard deviation are treated as a step. [1] It may also be used with an AI algorithm for more accurate detection of steps or to detect push (and push type) if the user is in a wheelchair. [2] Based on the number of steps, we can do a simple calculation for the number of calories burned [3][4] as part of future work.
 
 # Bibliography
 
@@ -15,7 +15,6 @@ The Pedometer measures the number of steps taken by using data from the IMU. As 
 
 ```plantuml
 @startuml
-
 set namespaceSeparator ::
 skinparam linetype ortho
 skinparam shadowing false
@@ -71,21 +70,14 @@ class "Pedometer:: StepSummaryStatisticsReducer" <<reducer>> {
     +reduce(state: State, action: Action): State
 }
 
-class "Pedometer:: CaloriesBurnedReducer" <<reducer>> {
-    +reduce(state: State, action: Action): State
-}
 
 class "Pedometer:: StepStatistics" <<selector>>{
     +execute(): state
 }
 
-class "Pedometer:: CaloriesBurned" <<selector>>{
-    +execute(): state
-}
 
 '=========== links
 "Pedometer:: PedometerView" ..> "Pedometer:: StepStatistics" : > queries store with
-"Pedometer:: PedometerView" ..> "Pedometer:: CaloriesBurned" : > queries store with
 
 "Pedometer:: InertialMeasurementUnit (IMU)" <.. "Pedometer:: ImuReading": > outputs
 
@@ -94,12 +86,10 @@ class "Pedometer:: CaloriesBurned" <<selector>>{
 "Pedometer:: DetectStepFromImu" ..> "Pedometer:: StepTaken" : > outputs
 
 "Pedometer:: StepSummaryStatisticsReducer" ..> "Pedometer:: StepTaken" : > listens for
-"Pedometer:: CaloriesBurnedReducer" ..> "Pedometer:: StepTaken" : > listens for
 
 "Pedometer:: InertialMeasurementUnit (IMU)" .u.> "Core Architecture:: Store" : > dispatches events to
 "Pedometer:: PedometerView" .u.> "Core Architecture:: Store" : > gets data from
 "Pedometer:: DetectStepFromImu" .u.> "Core Architecture:: Store"
 "Pedometer:: StepSummaryStatisticsReducer" .u.> "Core Architecture:: Store"
-"Pedometer:: CaloriesBurnedReducer" .u.> "Core Architecture:: Store"
 @enduml
 ```
