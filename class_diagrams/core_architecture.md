@@ -1,4 +1,4 @@
-![](http://www.plantuml.com/plantuml/png/bLF1ZjCm4BtxAqOLWYwm5LoZ42rq4I0XhKHNSE7YZIUjLTUkF4vBXVXtfhQpww3qG2vHx3TlthmtkQ4WVUXtHX06i7A7j9Sjhd0llGpEGrK9scfx_jo1qHR3QO_WVDYuue8sKhcZjclef24iRbeZYU2t07u-o7QxzgwtQkcCytNjKVKj-gQ1pyxYwHQFqpZP1kqimtviK8Pf3A4bTwQwntPZ-MnzcWOUD1uPTkVRZLRJ4EmwR0E3FZcZBhKp38aDlye3MeLU_17YnRkd1nHsskgpT19YpmnoZJ1REe_m_jmzC4FlSPRjqJQWxsJBjt7U-hw1OdO6vUVLEOEAWcV3dmwL3BAwZzyiP4puBHaDfUK5NpgSKv01ArYTNwyXDQwocAjyFis_YkP3aKB1xkmNTc5-LHsSLkNnBLBmxfHlffa_nYXWo6J4V9qaqhFgxe7G7-I3mJh9fUQIq1GRb0cMOl4Njdr0raINn_tEAmHvayP6naMO62Zz1YjkXrpOURd3e_FRSNLTBproKpwDo7aEYzXx37KEiRbwCY1g78qVGsh-mwAqEvhsChIR-R-XZoDBbiq7vwf7EqktHXCldGtU6OD-Qcp6CdhyqnXjjoH4ichsTWOlhw_vlLZOsUCQLz10AuqX47dpOB5eikXq6uqKQNl6bqPJu2BekEmv_BJ3x4ZGYA73cAwi4KFBHR_8EKL8GHFSq7Zs9kgEK9ubmql6u41QnJB6zOLlN7UPO1Ai8ZXs7WAA9JqXbU3ahXhiZMiTWMcDITpmkz-Plm00)
+![](http://www.plantuml.com/plantuml/png/bLF1ZjCm4BtxAqOLWYxG2gvHY1Qw292GLg8hk73n9fFMgcjN7gUbGlmxKzlPE2Wza4lLyPitRzwpRybBvxkz5eGUZDmZ7MIDQpn89xrrK1I2TifS_kv1AuF-V42mpczjTa1RsTYJCXjefIRCJcejYU2t0Fu-o7gtSROppSfgwyhIOTFLwAeAFbk3vpiyJUDaxPKr3FknHUcdCOI6x8Ng0UkjuThcF0qyAZmnxDxLMzLCGx1jiVOC-cHrSssSPaWO-5KUqJJen1yXNhmRFcYmLKPTf9CG1sQG6uJPoZg4zvVfdXawXxDaZp8UNIjhFWtxbWyLPBipA7slBXaKv1qRFXGRwMNn4Fwpa85ixQN7Siq4N1xF-HRzXpo9R4mipkb2K4IUrn3r54dZJQhtOyVywv09PE5axDPyONFcDyNHgYOlto6lPi_fP9hvOqW8XgWovaMKIC-A-qT2TvIF6iiebwfhGcEQa0URYyLVM7SUMHDTN_UxmXEa2pOsCjoFYONYwrZpEEJ6bXyCdgpRZRlBSkMGXt8r8ESfB6BlqPSfnEfcC21e7AqVGgh-mw9ufHGTfA-tyt7e_qOMBPltpXLFTexToZPUMSCHQurkQct6CdhybhGoEn8YMZLxEuENYmN_BfTczdID2wYWbbeJY7JpOBciakXu6emKyVQC3xKYpqtGSjjp-6dwtP6W4ls4CLtU8mPCnw3uA98FUGtI2ejkOVjAK3kW-3YmPmgyxJNFteIL0vHjIF1SZBSWJJFUWFipoxdlEi4ak0dWCBdVARHqX9I3Op1Ddqnu4G4ONm29M_xjzlel)
 
 # Core Architecture
 
@@ -83,6 +83,8 @@ package "Core Architecture" {
         +type:string
         +data:T
     }
+    
+    interface State<S> {}
 
     interface Reducer <<reducer>> {
         +reduce(state: State, action: Action): State
@@ -124,6 +126,10 @@ Store "1" *-- "1..n" Reducer : > calls
 Sensor  ..> Action : > create
 Effect ..> Action : listens for & \ndispatches >
 Reducer ..> Action : > listens for
+
+Reducer .u.> State
+Selector .u.> State 
+Store -u-o State 
 
 Sensor .u.> Store : > dispatches to
 Effect "0..n" .u.> "1" Store : > listens to and \ndispatches to
