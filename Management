@@ -1,0 +1,37 @@
+gantt
+title STAFF ALLOCATION CHART
+    dateFormat  YYYY-MM-DD
+    section TEAM
+    Group Setting     :done, a1, 2020-10-16, 10d
+    Topic Choice  : done, a2, after a1  , 5d
+    Project Overview  : done, a3, 2020-10-30, 1d
+    Staff Upskill  :active, a17, after a3, 48d
+    Report production :a4, after a12  , 14d
+    Report release    :a5, 2020-12-18  , 1d
+    Design  :a20, after a5, 48d
+    Validation  :a21, after a5, 48d
+    Product Launch  :a22, after a21, 5d
+    Support  :a17, after a22, 5d
+    section Mark ROCHE
+    System Architecture  :active, a6, 2020-11-02  , 7d
+    Assumptions          :active, a8, 2020-11-09  , 3d
+    State Diagram            :a20, after a13, 15d
+    Report production :a4, after a12  , 14d
+    section Fulvio GIARETTA
+    Functional        :active, a9, 2020-11-09, 27d
+    Overall Diagram           :active, a12, 2020-11-09, 25d
+    Use Case Diagram         :active, a13, 2020-11-13, 10d
+    Interaction Diagram      :a15, after a13, 15d
+    Report production :a4, after a12  , 14d
+    section Jeremy AH CHONG
+    Non-Functional    :active, a10, 2020-11-15, 21d
+    Management GANTT Chart 1 :done, a18, after a3, 33d 
+    Risk assessment   :active, a19, after a6, 30d
+    Activity Diagram         :done, a16, 2020-11-30, 8d
+    Report production :a4, after a12  , 14d
+    section James DREW
+    User Characteristics :active, a7, 2020-11-09  , 6d
+    Use Case Diagram            :a24, after a7, 12d
+    Class Diagram            :a14, after a13, 12d
+    Management GANTT Chart 2 :a23, after a14, 10d 
+    Report production :a4, after a12  , 14d
